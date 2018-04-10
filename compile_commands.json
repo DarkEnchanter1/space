@@ -1,0 +1,24 @@
+[
+    {
+        "arguments": [
+            "c++", 
+            "-c", 
+            "-o", 
+            "space", 
+            "space.cpp"
+        ], 
+        "directory": "/home/robert/dev/boost/space", 
+        "file": "space.cpp"
+    }, 
+    {
+        "arguments": [
+            "c++", 
+            "-c", 
+            "-o", 
+            "space", 
+            "physics.cpp"
+        ], 
+        "directory": "/home/robert/dev/boost/space", 
+        "file": "physics.cpp"
+    }
+]

@@ -1,32 +1,43 @@
 #include "physics.hpp"
 #include <iostream>
+#include <cmath>
 
 namespace Physics
 {
-Vector::Vector(Coord a, unsigned int b) : dir(a), mag(b) { };
+Vector::Vector() { };
 
-Object::Object() : speed(Coord(), 0), mass(0), dir(Angle())
+Coord::Coord() 
 {
-	speed.dir.x = 1;
-	speed.mag = 10; 
+	for (int i=0; i<3; i++)
+		inate[i] = 0.0f;
+}
 
-	std::cout << this << ": speed.dir.x=" << speed.dir.x << "\t speed.dir.inate[0]=" << speed.dir.inate[0] << std::endl;
+float
+Vector::get_mag()
+{
+	return sqrt((dir.inate[0]*dir.inate[0])+(dir.inate[1]*dir.inate[1])+(dir.inate[2]*dir.inate[2]));
+}
+
+Object::Object() : speed(), mass(0), dir(Angle())
+{
+	speed.dir.x = 1.0f;
+	speed.dir.y = 2.0f;
+	speed.dir.z = 5.0f;
 }
 
 void
 Object::update()
 {
-	std::cout << "Update! " << this << std::endl;
-	for(int i=0; i<3; i++) {
-		std::cout << pos.inate[i] << " : " << speed.dir.inate[i] << " : " << speed.mag << std::endl;
-		pos.inate[i] = pos.inate[i] + (speed.dir.inate[i] * speed.mag);
-	}
+	//std::cout << "Update! " << this << std::endl;
+	for(int i=0; i<3; i++)
+		pos.inate[i] = pos.inate[i] + speed.dir.inate[i];
 }
 
 void
 Object::print()
 {
-	std::cout << this << ": mass:" << mass << " speed: " << speed.mag << std::endl;
+	if (speed.dir.x!=1.0f)
+	std::cout << this << ": mass:" << mass << " speed: " << speed.get_mag() << std::endl;
 	std::cout << "speed\tpos\n";
 	std::cout << speed.dir.x << "\t" << pos.x << "\n";
 	std::cout << speed.dir.y << "\t" << pos.y << "\n";

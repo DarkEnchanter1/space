@@ -19,10 +19,10 @@ public:
 
 struct Coord
 {
-        int inate[3] = {0,0,0};
-        int& x = inate[0];
-        int& y = inate[1];
-        int& z = inate[2];
+	float inate[3] = {0,0,0};
+	float& x = inate[0];
+	float& y = inate[1];
+	float& z = inate[2];
 };
 
 class Angle
@@ -33,9 +33,9 @@ class Angle
 class Vector
 {
 public:
-        Vector(Coord a, unsigned int b);
+        Vector();
         Coord dir;
-        unsigned int mag;
+	float get_mag();
 };
 
 class Object

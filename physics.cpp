@@ -28,8 +28,9 @@ Coord::Coord()
 Coord
 Coord::operator*(const float& f)
 {
+	Coord c = *this;
 	for (int i=0; i<3; i++)
-		this->inate[i] *= f;
+		c.inate[i] *= f;
 	return *this;
 }
 
@@ -48,6 +49,29 @@ Coord::operator=(const float f[3])
 		this->inate[i] = f[i];
 	
 	return *this;
+}
+
+Coord
+Coord::cross(const Coord& c)
+{
+	return *this;
+}
+
+Matrix::Matrix(float theta, Axis a)
+{
+	switch(a)
+	{
+		case x:
+		{
+
+		}
+		case y:
+		{
+		}
+		case z:
+		{
+		}
+	}
 }
 
 float

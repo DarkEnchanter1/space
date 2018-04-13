@@ -15,7 +15,7 @@ main(void)
 	v.dir = new float[3] {-4.0f, -2.0f, 4.0f};
 	Physics::Force thrust = f.create_force(v, &o);
 
-	const timespec t = {1, 200};
+	const timespec t = {0, 75000000};
 	for(;;) {
 		f.update();
 		o.print();

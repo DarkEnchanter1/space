@@ -123,6 +123,60 @@ Space/fast:
 	$(MAKE) -f CMakeFiles/Space.dir/build.make CMakeFiles/Space.dir/build
 .PHONY : Space/fast
 
+common/controls.o: common/controls.cpp.o
+
+.PHONY : common/controls.o
+
+# target to build an object file
+common/controls.cpp.o:
+	$(MAKE) -f CMakeFiles/Space.dir/build.make CMakeFiles/Space.dir/common/controls.cpp.o
+.PHONY : common/controls.cpp.o
+
+common/controls.i: common/controls.cpp.i
+
+.PHONY : common/controls.i
+
+# target to preprocess a source file
+common/controls.cpp.i:
+	$(MAKE) -f CMakeFiles/Space.dir/build.make CMakeFiles/Space.dir/common/controls.cpp.i
+.PHONY : common/controls.cpp.i
+
+common/controls.s: common/controls.cpp.s
+
+.PHONY : common/controls.s
+
+# target to generate assembly for a file
+common/controls.cpp.s:
+	$(MAKE) -f CMakeFiles/Space.dir/build.make CMakeFiles/Space.dir/common/controls.cpp.s
+.PHONY : common/controls.cpp.s
+
+common/delta.o: common/delta.cpp.o
+
+.PHONY : common/delta.o
+
+# target to build an object file
+common/delta.cpp.o:
+	$(MAKE) -f CMakeFiles/Space.dir/build.make CMakeFiles/Space.dir/common/delta.cpp.o
+.PHONY : common/delta.cpp.o
+
+common/delta.i: common/delta.cpp.i
+
+.PHONY : common/delta.i
+
+# target to preprocess a source file
+common/delta.cpp.i:
+	$(MAKE) -f CMakeFiles/Space.dir/build.make CMakeFiles/Space.dir/common/delta.cpp.i
+.PHONY : common/delta.cpp.i
+
+common/delta.s: common/delta.cpp.s
+
+.PHONY : common/delta.s
+
+# target to generate assembly for a file
+common/delta.cpp.s:
+	$(MAKE) -f CMakeFiles/Space.dir/build.make CMakeFiles/Space.dir/common/delta.cpp.s
+.PHONY : common/delta.cpp.s
+
 physics.o: physics.cpp.o
 
 .PHONY : physics.o
@@ -149,6 +203,114 @@ physics.s: physics.cpp.s
 physics.cpp.s:
 	$(MAKE) -f CMakeFiles/Space.dir/build.make CMakeFiles/Space.dir/physics.cpp.s
 .PHONY : physics.cpp.s
+
+rendering/renderer.o: rendering/renderer.cpp.o
+
+.PHONY : rendering/renderer.o
+
+# target to build an object file
+rendering/renderer.cpp.o:
+	$(MAKE) -f CMakeFiles/Space.dir/build.make CMakeFiles/Space.dir/rendering/renderer.cpp.o
+.PHONY : rendering/renderer.cpp.o
+
+rendering/renderer.i: rendering/renderer.cpp.i
+
+.PHONY : rendering/renderer.i
+
+# target to preprocess a source file
+rendering/renderer.cpp.i:
+	$(MAKE) -f CMakeFiles/Space.dir/build.make CMakeFiles/Space.dir/rendering/renderer.cpp.i
+.PHONY : rendering/renderer.cpp.i
+
+rendering/renderer.s: rendering/renderer.cpp.s
+
+.PHONY : rendering/renderer.s
+
+# target to generate assembly for a file
+rendering/renderer.cpp.s:
+	$(MAKE) -f CMakeFiles/Space.dir/build.make CMakeFiles/Space.dir/rendering/renderer.cpp.s
+.PHONY : rendering/renderer.cpp.s
+
+rendering/utils/shader.o: rendering/utils/shader.cpp.o
+
+.PHONY : rendering/utils/shader.o
+
+# target to build an object file
+rendering/utils/shader.cpp.o:
+	$(MAKE) -f CMakeFiles/Space.dir/build.make CMakeFiles/Space.dir/rendering/utils/shader.cpp.o
+.PHONY : rendering/utils/shader.cpp.o
+
+rendering/utils/shader.i: rendering/utils/shader.cpp.i
+
+.PHONY : rendering/utils/shader.i
+
+# target to preprocess a source file
+rendering/utils/shader.cpp.i:
+	$(MAKE) -f CMakeFiles/Space.dir/build.make CMakeFiles/Space.dir/rendering/utils/shader.cpp.i
+.PHONY : rendering/utils/shader.cpp.i
+
+rendering/utils/shader.s: rendering/utils/shader.cpp.s
+
+.PHONY : rendering/utils/shader.s
+
+# target to generate assembly for a file
+rendering/utils/shader.cpp.s:
+	$(MAKE) -f CMakeFiles/Space.dir/build.make CMakeFiles/Space.dir/rendering/utils/shader.cpp.s
+.PHONY : rendering/utils/shader.cpp.s
+
+rendering/utils/text2D.o: rendering/utils/text2D.cpp.o
+
+.PHONY : rendering/utils/text2D.o
+
+# target to build an object file
+rendering/utils/text2D.cpp.o:
+	$(MAKE) -f CMakeFiles/Space.dir/build.make CMakeFiles/Space.dir/rendering/utils/text2D.cpp.o
+.PHONY : rendering/utils/text2D.cpp.o
+
+rendering/utils/text2D.i: rendering/utils/text2D.cpp.i
+
+.PHONY : rendering/utils/text2D.i
+
+# target to preprocess a source file
+rendering/utils/text2D.cpp.i:
+	$(MAKE) -f CMakeFiles/Space.dir/build.make CMakeFiles/Space.dir/rendering/utils/text2D.cpp.i
+.PHONY : rendering/utils/text2D.cpp.i
+
+rendering/utils/text2D.s: rendering/utils/text2D.cpp.s
+
+.PHONY : rendering/utils/text2D.s
+
+# target to generate assembly for a file
+rendering/utils/text2D.cpp.s:
+	$(MAKE) -f CMakeFiles/Space.dir/build.make CMakeFiles/Space.dir/rendering/utils/text2D.cpp.s
+.PHONY : rendering/utils/text2D.cpp.s
+
+rendering/utils/texture.o: rendering/utils/texture.cpp.o
+
+.PHONY : rendering/utils/texture.o
+
+# target to build an object file
+rendering/utils/texture.cpp.o:
+	$(MAKE) -f CMakeFiles/Space.dir/build.make CMakeFiles/Space.dir/rendering/utils/texture.cpp.o
+.PHONY : rendering/utils/texture.cpp.o
+
+rendering/utils/texture.i: rendering/utils/texture.cpp.i
+
+.PHONY : rendering/utils/texture.i
+
+# target to preprocess a source file
+rendering/utils/texture.cpp.i:
+	$(MAKE) -f CMakeFiles/Space.dir/build.make CMakeFiles/Space.dir/rendering/utils/texture.cpp.i
+.PHONY : rendering/utils/texture.cpp.i
+
+rendering/utils/texture.s: rendering/utils/texture.cpp.s
+
+.PHONY : rendering/utils/texture.s
+
+# target to generate assembly for a file
+rendering/utils/texture.cpp.s:
+	$(MAKE) -f CMakeFiles/Space.dir/build.make CMakeFiles/Space.dir/rendering/utils/texture.cpp.s
+.PHONY : rendering/utils/texture.cpp.s
 
 space.o: space.cpp.o
 
@@ -186,9 +348,27 @@ help:
 	@echo "... rebuild_cache"
 	@echo "... Space"
 	@echo "... edit_cache"
+	@echo "... common/controls.o"
+	@echo "... common/controls.i"
+	@echo "... common/controls.s"
+	@echo "... common/delta.o"
+	@echo "... common/delta.i"
+	@echo "... common/delta.s"
 	@echo "... physics.o"
 	@echo "... physics.i"
 	@echo "... physics.s"
+	@echo "... rendering/renderer.o"
+	@echo "... rendering/renderer.i"
+	@echo "... rendering/renderer.s"
+	@echo "... rendering/utils/shader.o"
+	@echo "... rendering/utils/shader.i"
+	@echo "... rendering/utils/shader.s"
+	@echo "... rendering/utils/text2D.o"
+	@echo "... rendering/utils/text2D.i"
+	@echo "... rendering/utils/text2D.s"
+	@echo "... rendering/utils/texture.o"
+	@echo "... rendering/utils/texture.i"
+	@echo "... rendering/utils/texture.s"
 	@echo "... space.o"
 	@echo "... space.i"
 	@echo "... space.s"

@@ -7,8 +7,8 @@
 #include <glm/gtc/matrix_transform.hpp>
 using namespace glm;
 
-#include "rendering/utils/shader/shader.hpp"
-#include "rendering/utils/texture/texture.hpp"
+#include "rendering/utils/shader.hpp"
+#include "rendering/utils/texture.hpp"
 
 #include "text2D.hpp"
 

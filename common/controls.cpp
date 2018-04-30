@@ -35,7 +35,7 @@ float mouseSpeed = 0.005f;
 
 bool firstTime = true;
 bool menuMode = false, firstPress = true;
-void computeMatricesFromInputs(){
+void computeMatricesFromInputs(GLFWwindow* window){
 	if (horizontalAngle > 6.28318) horizontalAngle -= 6.28318;
 	if (horizontalAngle < 0) horizontalAngle += 6.28318;
 	// glfwGetTime is called only once, the first time this function is called

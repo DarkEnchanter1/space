@@ -4,16 +4,43 @@
 #include <string>
 #include <iostream>
 #include "common/primitives.hpp"
+#include "common/delta.hpp"
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtx/rotate_vector.hpp>
 #include <GL/glew.h>
 #include <glm/glm.hpp>
-class RenderEngine {
-	public:
+namespace render {
+	class RenderEngine;
+	class Model;
+
+	class RenderEngine {
+		GLuint Texture;
+		GLuint TextureID;
+		GLuint VertexArrayID;
+		GLuint programID;
+		GLuint MatrixID;
+		GLuint ViewMatrixID;
+		GLuint ModelMatrixID;
+		GLuint LightID;
+		glm::mat4 MVP;
+		glm::vec3 lightPos;
+		public:
+			std::vector<Triangle> triangles;
+			std::vector<UVData>   uvdata;
+			std::vector<Normals>  normals;
+			GLuint vertexbuffer, uvbuffer, normalbuffer;
+			int render();
+			RenderEngine();
+			~RenderEngine();
+	};
+	class Model {
 		std::vector<Triangle> triangles;
-		std::vector<UVData> uvdata;
-		std::vector<Normals> normals;
-		GLuint vertexbuffer, uvbuffer, normalbuffer;
-		int render();
-};
+		std::vector<UVData>   uvdata;
+		std::vector<Normals>  normals;
+		public:
+		std::vector<Triangle> getVectors();
+		std::vector<UVData> getUVData();
+		std::vector<Normals> getNormals();
+	};
+}
 #endif

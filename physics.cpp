@@ -86,7 +86,7 @@ Vector::get_sqrmag()
 	return (dir.inate[0]*dir.inate[0])+(dir.inate[1]*dir.inate[1])+(dir.inate[2]*dir.inate[2]);
 }
 
-Object::Object() : speed(), mass(0) 
+Object::Object(const char* modelid) : speed(), mass(0) 
 {
 	speed.dir.x = 1.0f;
 	speed.dir.y = 2.0f;
@@ -140,9 +140,9 @@ Object::get_speed(int index)
 }
 
 Object
-Factory::create_object()
+Factory::create_object(const char* modelid)
 {
-	Object ret = Object();
+	Object ret = Object(modelid);
 	std::cout << &ret << " added to list\n";
 	objs.push_back(&ret);
 	return ret;

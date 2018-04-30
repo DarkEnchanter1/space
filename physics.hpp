@@ -1,5 +1,7 @@
+#ifndef PHYSICS_HPP
+#define PHYSICS_HPP
 #include <vector>
-
+#include "rendering/renderer.hpp"
 namespace Physics
 {
 class Factory;
@@ -13,7 +15,7 @@ class Factory
 	std::vector<Object*> objs;
 	std::vector<Force*>  fors;
 public:
-	Object create_object();
+	Object create_object(const char* modelid);
 	Force  create_force(Vector f, Object* o);
 	void update();
 };
@@ -65,8 +67,9 @@ protected:
 	Coord  pos;        // m
 	Vector dir;
 	Vector upv;
-	Object();
-	friend Object Factory::create_object();
+	render::Model model;
+	Object(const char* modelid);
+	friend Object Factory::create_object(const char* modelid);
 public:
 	void update(void);
 	void print(void);
@@ -89,3 +92,4 @@ public:
 };
 
 }
+#endif

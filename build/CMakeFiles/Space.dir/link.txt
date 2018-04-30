@@ -1,0 +1,1 @@
+/usr/bin/c++    -rdynamic CMakeFiles/Space.dir/space.cpp.o CMakeFiles/Space.dir/physics.cpp.o  -o Space -lGL -lGLU 

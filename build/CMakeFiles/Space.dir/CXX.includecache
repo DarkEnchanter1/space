@@ -1,0 +1,28 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/greg/Documents/Projects/C++/space/physics.cpp
+physics.hpp
+/home/greg/Documents/Projects/C++/space/physics.hpp
+iostream
+-
+cmath
+-
+
+/home/greg/Documents/Projects/C++/space/physics.hpp
+vector
+-
+
+/home/greg/Documents/Projects/C++/space/space.cpp
+iostream
+-
+physics.hpp
+/home/greg/Documents/Projects/C++/space/physics.hpp
+unistd.h
+-
+

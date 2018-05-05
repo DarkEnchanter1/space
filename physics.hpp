@@ -14,7 +14,9 @@ class Factory
 {
 	std::vector<Object*> objs;
 	std::vector<Force*>  fors;
+	render::RenderEngine* rend;
 public:
+	Factory(render::RenderEngine* _r);
 	Object create_object(const char* modelid);
 	Force  create_force(Vector f, Object* o);
 	void update();
@@ -70,7 +72,7 @@ protected:
 	Object(const char* modelid);
 	friend Object Factory::create_object(const char* modelid);
 public:
-	void pushModel(std::vector<Triangle>* triangles, std::vector<UVData>* uvdata, std::vector<Normals>* normals);
+	void pushModel(std::vector<glm::vec3>* triangles, std::vector<glm::vec2>* uvdata, std::vector<glm::vec3>* normals);
 	void update(void);
 	void print(void);
 	void set_speed(int index, float val);

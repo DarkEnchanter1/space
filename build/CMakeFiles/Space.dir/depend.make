@@ -18,6 +18,7 @@ CMakeFiles/Space.dir/physics.cpp.o: ../rendering/renderer.hpp
 
 CMakeFiles/Space.dir/rendering/renderer.cpp.o: ../common/controls.hpp
 CMakeFiles/Space.dir/rendering/renderer.cpp.o: ../common/delta.hpp
+CMakeFiles/Space.dir/rendering/renderer.cpp.o: ../common/objloader.hpp
 CMakeFiles/Space.dir/rendering/renderer.cpp.o: ../common/primitives.hpp
 CMakeFiles/Space.dir/rendering/renderer.cpp.o: ../rendering/utils/shader.hpp
 CMakeFiles/Space.dir/rendering/renderer.cpp.o: ../rendering/utils/texture.hpp

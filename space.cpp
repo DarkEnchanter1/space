@@ -3,31 +3,33 @@
 #include "physics.hpp"
 #include <unistd.h>
 #include "rendering/renderer.hpp"
+#include <GLFW/glfw3.h>
 render::RenderEngine rdr;
+bool stop = false;
 int renderLoop() {
-	while (true)
-		rdr.render();
+}
+int physicsLoop() {
+	Physics::Factory f(&rdr);
+	Physics::Vector v;
+	v.dir = {0,0,0};
+	Physics::Object o = f.create_object("resources/cube.obj");
+	o.set_speed(v);
+	v.dir = {0.0f, 0.0f, 0.0f};
+	Physics::Force thrust = f.create_force(v, &o);
+
+	const timespec t = {0, 75000000};
+	for (;;) {
+		f.update();
+		nanosleep(&t, NULL);
+	}
+	
 }
 int
 main(void)
 {
 	std::cout << "Hello Wrold!()\n";
-	std::thread thr(renderLoop);
-	Physics::Factory f;
-	Physics::Vector v;
-	v.dir = new float[3] {5,5,5};
-	Physics::Object o = f.create_object("resources/cube.obj");
-	o.set_speed(v);
-	v.dir = new float[3] {-4.0f, -2.0f, 4.0f};
-	Physics::Force thrust = f.create_force(v, &o);
-
-	const timespec t = {0, 75000000};
-	for(;;) {
-		std::cout << sizeof(Physics::Coord) << std::endl;
-		f.update();
-		o.print();
-		nanosleep(&t, NULL);
-	}
-	
+	std::thread thr(physicsLoop);
+	rdr.loop();
+	std::terminate();
 	return 0;
 }

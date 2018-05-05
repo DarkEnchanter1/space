@@ -25,19 +25,20 @@ namespace render {
 		glm::mat4 MVP;
 		glm::vec3 lightPos;
 		public:
-			std::vector<Triangle> triangles;
-			std::vector<UVData>   uvdata;
-			std::vector<Normals>  normals;
+			std::vector<glm::vec3> triangles;
+			std::vector<glm::vec2>   uvdata;
+			std::vector<glm::vec3>  normals;
 			GLuint vertexbuffer, uvbuffer, normalbuffer;
 			int render();
 			RenderEngine();
 			~RenderEngine();
+			void loop();
 	};
 	struct Model {
 		Model(const char* modelid);
-		std::vector<Triangle> triangles;
-		std::vector<UVData>   uvdata;
-		std::vector<Normals>  normals;
+		std::vector<glm::vec3> triangles;
+		std::vector<glm::vec2>   uvdata;
+		std::vector<glm::vec3>  normals;
 	};
 }
 #endif

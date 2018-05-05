@@ -134,6 +134,18 @@ Object::get_speed(int index)
 	return speed.dir.inate[index];
 }
 
+void
+Object::pushModel(std::vector<glm::vec3>* triangleBuf, std::vector<glm::vec2>* uvBuf, std::vector<glm::vec3>* normalBuf)
+{
+	triangleBuf->insert(triangleBuf->end(), model.triangles.begin(), model.triangles.end());
+	uvBuf->insert(uvBuf->end(), model.uvdata.begin(), model.uvdata.end());
+	normalBuf->insert(normalBuf->end(), model.normals.begin(), model.normals.end());
+}
+
+Factory::Factory(render::RenderEngine* _r) {
+	rend = _r; //TODO: Stop this double initialization
+}
+
 Object
 Factory::create_object(const char* modelid)
 {
@@ -154,10 +166,19 @@ Factory::create_force(Vector f, Physics::Object* o)
 void
 Factory::update()
 {
+	std::vector<glm::vec3> triangleBuf;
+	std::vector<glm::vec2> uvBuf;
+	std::vector<glm::vec3> normalBuf;
+	
 	for ( auto &i : fors)
 		i->update();
-	for ( auto &i : objs)
+	for ( auto &i : objs) {
 		i->update();
+		i->pushModel(&triangleBuf, &uvBuf, &normalBuf);
+	}
+	rend->triangles = triangleBuf;
+	rend->uvdata = uvBuf;
+	rend->normals = normalBuf;
 }
 
 Force::Force(Vector f, Object* o) : o(o), v(f)

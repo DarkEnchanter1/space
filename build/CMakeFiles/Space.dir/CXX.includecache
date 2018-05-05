@@ -12,6 +12,8 @@
 chrono
 -
 
+..//common/objloader.hpp
+
 ..//common/primitives.hpp
 glm/glm.hpp
 -
@@ -33,6 +35,8 @@ glm/gtc/matrix_transform.hpp
 -
 controls.hpp
 /home/greg/CPP/space/common/controls.hpp
+iostream
+-
 
 /home/greg/CPP/space/common/controls.hpp
 
@@ -119,6 +123,8 @@ rendering/utils/texture.hpp
 /home/greg/CPP/space/rendering/rendering/utils/texture.hpp
 common/controls.hpp
 /home/greg/CPP/space/rendering/common/controls.hpp
+common/objloader.hpp
+/home/greg/CPP/space/rendering/common/objloader.hpp
 
 /home/greg/CPP/space/rendering/renderer.hpp
 vector
@@ -211,4 +217,6 @@ unistd.h
 -
 rendering/renderer.hpp
 /home/greg/CPP/space/rendering/renderer.hpp
+GLFW/glfw3.h
+-
 

@@ -8,6 +8,7 @@ extern GLFWwindow* window; // The "extern" keyword here is to access the variabl
 using namespace glm;
 
 #include "controls.hpp"
+#include <iostream>
 
 
 glm::mat4 ViewMatrix;
@@ -36,6 +37,8 @@ float mouseSpeed = 0.005f;
 bool firstTime = true;
 bool menuMode = false, firstPress = true;
 void computeMatricesFromInputs(GLFWwindow* window){
+	std::cout << horizontalAngle << ", " << verticalAngle << std::endl;
+	std::cout << position.x << ", " << position.y << ", " << position.z << std::endl;
 	if (horizontalAngle > 6.28318) horizontalAngle -= 6.28318;
 	if (horizontalAngle < 0) horizontalAngle += 6.28318;
 	// glfwGetTime is called only once, the first time this function is called

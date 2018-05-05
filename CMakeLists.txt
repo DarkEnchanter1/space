@@ -11,6 +11,7 @@ set(RenderSourceList
 set(CommonSourceList
         "common/controls.cpp" "common/controls.hpp"
         "common/delta.cpp" "common/delta.hpp"
+        "common/objloader.cpp" "common/objloader.hpp"
         "common/primitives.hpp")
 set (MainSourceList
         "space.cpp")
@@ -18,6 +19,10 @@ set (Space_VERSION_MAJOR 1)
 set (Space_VERSION_MINOR 0)
 # Add the executable
 add_executable(Space ${PhysicsSourceList} ${RenderSourceList} ${CommonSourceList} ${MainSourceList})
+# Gets and adds AssImp to the project.
+find_package (ASSIMP REQUIRED)
+include_directories(${ASSIMP_INCLUDE_DIR})
+target_link_libraries ( Space ${ASSIMP_LIBRARIES})
 # Gets and adds OpenGL to the project.
 find_package (OpenGL REQUIRED)
 include_directories(${OPENGL_INCLUDE_DIR})

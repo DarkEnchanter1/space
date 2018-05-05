@@ -165,7 +165,6 @@ RenderEngine::~RenderEngine() {
 }
 
 
-
 int RenderEngine::render() {		// Handles controls and view refactor
 		computeMatricesFromInputs(window);
 		// Clear the screen
@@ -249,3 +248,6 @@ int RenderEngine::render() {		// Handles controls and view refactor
 
 	return 0;
 };
+Model::Model(const char* modelid) {
+	
+}

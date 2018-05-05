@@ -3,15 +3,15 @@
 #include "physics.hpp"
 #include <unistd.h>
 #include "rendering/renderer.hpp"
-render::RenderEngine render;
+render::RenderEngine rdr;
 int renderLoop() {
 	while (true)
-		render.render();
+		rdr.render();
 }
 int
 main(void)
 {
-	std::cout << "Hello World!()\n";
+	std::cout << "Hello Wrold!()\n";
 	std::thread thr(renderLoop);
 	Physics::Factory f;
 	Physics::Vector v;
@@ -22,7 +22,8 @@ main(void)
 	Physics::Force thrust = f.create_force(v, &o);
 
 	const timespec t = {0, 75000000};
-	for(;;) { //Seriously?
+	for(;;) {
+		std::cout << sizeof(Physics::Coord) << std::endl;
 		f.update();
 		o.print();
 		nanosleep(&t, NULL);

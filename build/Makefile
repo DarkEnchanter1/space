@@ -48,10 +48,10 @@ RM = /usr/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/greg/Documents/Projects/C++/space
+CMAKE_SOURCE_DIR = /home/greg/CPP/space
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/greg/Documents/Projects/C++/space/build
+CMAKE_BINARY_DIR = /home/greg/CPP/space/build
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -80,9 +80,9 @@ edit_cache/fast: edit_cache
 
 # The main all target
 all: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/greg/Documents/Projects/C++/space/build/CMakeFiles /home/greg/Documents/Projects/C++/space/build/CMakeFiles/progress.marks
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/greg/CPP/space/build/CMakeFiles /home/greg/CPP/space/build/CMakeFiles/progress.marks
 	$(MAKE) -f CMakeFiles/Makefile2 all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/greg/Documents/Projects/C++/space/build/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/greg/CPP/space/build/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
@@ -176,6 +176,33 @@ common/delta.s: common/delta.cpp.s
 common/delta.cpp.s:
 	$(MAKE) -f CMakeFiles/Space.dir/build.make CMakeFiles/Space.dir/common/delta.cpp.s
 .PHONY : common/delta.cpp.s
+
+common/objloader.o: common/objloader.cpp.o
+
+.PHONY : common/objloader.o
+
+# target to build an object file
+common/objloader.cpp.o:
+	$(MAKE) -f CMakeFiles/Space.dir/build.make CMakeFiles/Space.dir/common/objloader.cpp.o
+.PHONY : common/objloader.cpp.o
+
+common/objloader.i: common/objloader.cpp.i
+
+.PHONY : common/objloader.i
+
+# target to preprocess a source file
+common/objloader.cpp.i:
+	$(MAKE) -f CMakeFiles/Space.dir/build.make CMakeFiles/Space.dir/common/objloader.cpp.i
+.PHONY : common/objloader.cpp.i
+
+common/objloader.s: common/objloader.cpp.s
+
+.PHONY : common/objloader.s
+
+# target to generate assembly for a file
+common/objloader.cpp.s:
+	$(MAKE) -f CMakeFiles/Space.dir/build.make CMakeFiles/Space.dir/common/objloader.cpp.s
+.PHONY : common/objloader.cpp.s
 
 physics.o: physics.cpp.o
 
@@ -354,6 +381,9 @@ help:
 	@echo "... common/delta.o"
 	@echo "... common/delta.i"
 	@echo "... common/delta.s"
+	@echo "... common/objloader.o"
+	@echo "... common/objloader.i"
+	@echo "... common/objloader.s"
 	@echo "... physics.o"
 	@echo "... physics.i"
 	@echo "... physics.s"

@@ -6,5 +6,5 @@ CXX_FLAGS =   -pthread
 
 CXX_DEFINES = 
 
-CXX_INCLUDES = -I/home/greg/Documents/Projects/C++/space/build -I/home/greg/Documents/Projects/C++/space -I/usr/include/GLFW 
+CXX_INCLUDES = -I/home/greg/CPP/space/build -I/home/greg/CPP/space -I/usr/include/GLFW 
 

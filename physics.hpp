@@ -22,11 +22,10 @@ public:
 
 struct Coord
 {
-	Coord();
-	float inate[3] = {0,0,0};
-	float& x = inate[0];
-	float& y = inate[1];
-	float& z = inate[2];
+	union {
+		float inate[3] = {0,0,0};
+		float x, y, z;
+	};
 	Coord operator*(const float&);
 	Coord operator=(const Coord&);
 	Coord operator=(const float[3]);
@@ -71,6 +70,7 @@ protected:
 	Object(const char* modelid);
 	friend Object Factory::create_object(const char* modelid);
 public:
+	void pushModel(std::vector<Triangle>* triangles, std::vector<UVData>* uvdata, std::vector<Normals>* normals);
 	void update(void);
 	void print(void);
 	void set_speed(int index, float val);

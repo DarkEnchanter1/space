@@ -7,6 +7,9 @@ CMakeFiles/Space.dir/common/controls.cpp.o: ../common/controls.hpp
 CMakeFiles/Space.dir/common/delta.cpp.o: ../common/delta.cpp
 CMakeFiles/Space.dir/common/delta.cpp.o: ../common/delta.hpp
 
+CMakeFiles/Space.dir/common/objloader.cpp.o: ../common/objloader.cpp
+CMakeFiles/Space.dir/common/objloader.cpp.o: ../common/objloader.hpp
+
 CMakeFiles/Space.dir/physics.cpp.o: ../common/delta.hpp
 CMakeFiles/Space.dir/physics.cpp.o: ../common/primitives.hpp
 CMakeFiles/Space.dir/physics.cpp.o: ../physics.cpp

@@ -43,10 +43,10 @@ RM = /usr/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/greg/Documents/Projects/C++/space
+CMAKE_SOURCE_DIR = /home/greg/CPP/space
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/greg/Documents/Projects/C++/space/build
+CMAKE_BINARY_DIR = /home/greg/CPP/space/build
 
 # Include any dependencies generated for this target.
 include CMakeFiles/Space.dir/depend.make
@@ -59,16 +59,16 @@ include CMakeFiles/Space.dir/flags.make
 
 CMakeFiles/Space.dir/physics.cpp.o: CMakeFiles/Space.dir/flags.make
 CMakeFiles/Space.dir/physics.cpp.o: ../physics.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/greg/Documents/Projects/C++/space/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/Space.dir/physics.cpp.o"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/Space.dir/physics.cpp.o -c /home/greg/Documents/Projects/C++/space/physics.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/greg/CPP/space/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/Space.dir/physics.cpp.o"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/Space.dir/physics.cpp.o -c /home/greg/CPP/space/physics.cpp
 
 CMakeFiles/Space.dir/physics.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/Space.dir/physics.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/greg/Documents/Projects/C++/space/physics.cpp > CMakeFiles/Space.dir/physics.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/greg/CPP/space/physics.cpp > CMakeFiles/Space.dir/physics.cpp.i
 
 CMakeFiles/Space.dir/physics.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/Space.dir/physics.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/greg/Documents/Projects/C++/space/physics.cpp -o CMakeFiles/Space.dir/physics.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/greg/CPP/space/physics.cpp -o CMakeFiles/Space.dir/physics.cpp.s
 
 CMakeFiles/Space.dir/physics.cpp.o.requires:
 
@@ -83,16 +83,16 @@ CMakeFiles/Space.dir/physics.cpp.o.provides.build: CMakeFiles/Space.dir/physics.
 
 CMakeFiles/Space.dir/rendering/renderer.cpp.o: CMakeFiles/Space.dir/flags.make
 CMakeFiles/Space.dir/rendering/renderer.cpp.o: ../rendering/renderer.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/greg/Documents/Projects/C++/space/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/Space.dir/rendering/renderer.cpp.o"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/Space.dir/rendering/renderer.cpp.o -c /home/greg/Documents/Projects/C++/space/rendering/renderer.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/greg/CPP/space/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/Space.dir/rendering/renderer.cpp.o"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/Space.dir/rendering/renderer.cpp.o -c /home/greg/CPP/space/rendering/renderer.cpp
 
 CMakeFiles/Space.dir/rendering/renderer.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/Space.dir/rendering/renderer.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/greg/Documents/Projects/C++/space/rendering/renderer.cpp > CMakeFiles/Space.dir/rendering/renderer.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/greg/CPP/space/rendering/renderer.cpp > CMakeFiles/Space.dir/rendering/renderer.cpp.i
 
 CMakeFiles/Space.dir/rendering/renderer.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/Space.dir/rendering/renderer.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/greg/Documents/Projects/C++/space/rendering/renderer.cpp -o CMakeFiles/Space.dir/rendering/renderer.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/greg/CPP/space/rendering/renderer.cpp -o CMakeFiles/Space.dir/rendering/renderer.cpp.s
 
 CMakeFiles/Space.dir/rendering/renderer.cpp.o.requires:
 
@@ -107,16 +107,16 @@ CMakeFiles/Space.dir/rendering/renderer.cpp.o.provides.build: CMakeFiles/Space.d
 
 CMakeFiles/Space.dir/rendering/utils/shader.cpp.o: CMakeFiles/Space.dir/flags.make
 CMakeFiles/Space.dir/rendering/utils/shader.cpp.o: ../rendering/utils/shader.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/greg/Documents/Projects/C++/space/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/Space.dir/rendering/utils/shader.cpp.o"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/Space.dir/rendering/utils/shader.cpp.o -c /home/greg/Documents/Projects/C++/space/rendering/utils/shader.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/greg/CPP/space/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/Space.dir/rendering/utils/shader.cpp.o"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/Space.dir/rendering/utils/shader.cpp.o -c /home/greg/CPP/space/rendering/utils/shader.cpp
 
 CMakeFiles/Space.dir/rendering/utils/shader.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/Space.dir/rendering/utils/shader.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/greg/Documents/Projects/C++/space/rendering/utils/shader.cpp > CMakeFiles/Space.dir/rendering/utils/shader.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/greg/CPP/space/rendering/utils/shader.cpp > CMakeFiles/Space.dir/rendering/utils/shader.cpp.i
 
 CMakeFiles/Space.dir/rendering/utils/shader.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/Space.dir/rendering/utils/shader.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/greg/Documents/Projects/C++/space/rendering/utils/shader.cpp -o CMakeFiles/Space.dir/rendering/utils/shader.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/greg/CPP/space/rendering/utils/shader.cpp -o CMakeFiles/Space.dir/rendering/utils/shader.cpp.s
 
 CMakeFiles/Space.dir/rendering/utils/shader.cpp.o.requires:
 
@@ -131,16 +131,16 @@ CMakeFiles/Space.dir/rendering/utils/shader.cpp.o.provides.build: CMakeFiles/Spa
 
 CMakeFiles/Space.dir/rendering/utils/text2D.cpp.o: CMakeFiles/Space.dir/flags.make
 CMakeFiles/Space.dir/rendering/utils/text2D.cpp.o: ../rendering/utils/text2D.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/greg/Documents/Projects/C++/space/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/Space.dir/rendering/utils/text2D.cpp.o"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/Space.dir/rendering/utils/text2D.cpp.o -c /home/greg/Documents/Projects/C++/space/rendering/utils/text2D.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/greg/CPP/space/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/Space.dir/rendering/utils/text2D.cpp.o"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/Space.dir/rendering/utils/text2D.cpp.o -c /home/greg/CPP/space/rendering/utils/text2D.cpp
 
 CMakeFiles/Space.dir/rendering/utils/text2D.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/Space.dir/rendering/utils/text2D.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/greg/Documents/Projects/C++/space/rendering/utils/text2D.cpp > CMakeFiles/Space.dir/rendering/utils/text2D.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/greg/CPP/space/rendering/utils/text2D.cpp > CMakeFiles/Space.dir/rendering/utils/text2D.cpp.i
 
 CMakeFiles/Space.dir/rendering/utils/text2D.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/Space.dir/rendering/utils/text2D.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/greg/Documents/Projects/C++/space/rendering/utils/text2D.cpp -o CMakeFiles/Space.dir/rendering/utils/text2D.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/greg/CPP/space/rendering/utils/text2D.cpp -o CMakeFiles/Space.dir/rendering/utils/text2D.cpp.s
 
 CMakeFiles/Space.dir/rendering/utils/text2D.cpp.o.requires:
 
@@ -155,16 +155,16 @@ CMakeFiles/Space.dir/rendering/utils/text2D.cpp.o.provides.build: CMakeFiles/Spa
 
 CMakeFiles/Space.dir/rendering/utils/texture.cpp.o: CMakeFiles/Space.dir/flags.make
 CMakeFiles/Space.dir/rendering/utils/texture.cpp.o: ../rendering/utils/texture.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/greg/Documents/Projects/C++/space/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/Space.dir/rendering/utils/texture.cpp.o"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/Space.dir/rendering/utils/texture.cpp.o -c /home/greg/Documents/Projects/C++/space/rendering/utils/texture.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/greg/CPP/space/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/Space.dir/rendering/utils/texture.cpp.o"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/Space.dir/rendering/utils/texture.cpp.o -c /home/greg/CPP/space/rendering/utils/texture.cpp
 
 CMakeFiles/Space.dir/rendering/utils/texture.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/Space.dir/rendering/utils/texture.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/greg/Documents/Projects/C++/space/rendering/utils/texture.cpp > CMakeFiles/Space.dir/rendering/utils/texture.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/greg/CPP/space/rendering/utils/texture.cpp > CMakeFiles/Space.dir/rendering/utils/texture.cpp.i
 
 CMakeFiles/Space.dir/rendering/utils/texture.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/Space.dir/rendering/utils/texture.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/greg/Documents/Projects/C++/space/rendering/utils/texture.cpp -o CMakeFiles/Space.dir/rendering/utils/texture.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/greg/CPP/space/rendering/utils/texture.cpp -o CMakeFiles/Space.dir/rendering/utils/texture.cpp.s
 
 CMakeFiles/Space.dir/rendering/utils/texture.cpp.o.requires:
 
@@ -179,16 +179,16 @@ CMakeFiles/Space.dir/rendering/utils/texture.cpp.o.provides.build: CMakeFiles/Sp
 
 CMakeFiles/Space.dir/common/controls.cpp.o: CMakeFiles/Space.dir/flags.make
 CMakeFiles/Space.dir/common/controls.cpp.o: ../common/controls.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/greg/Documents/Projects/C++/space/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object CMakeFiles/Space.dir/common/controls.cpp.o"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/Space.dir/common/controls.cpp.o -c /home/greg/Documents/Projects/C++/space/common/controls.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/greg/CPP/space/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object CMakeFiles/Space.dir/common/controls.cpp.o"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/Space.dir/common/controls.cpp.o -c /home/greg/CPP/space/common/controls.cpp
 
 CMakeFiles/Space.dir/common/controls.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/Space.dir/common/controls.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/greg/Documents/Projects/C++/space/common/controls.cpp > CMakeFiles/Space.dir/common/controls.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/greg/CPP/space/common/controls.cpp > CMakeFiles/Space.dir/common/controls.cpp.i
 
 CMakeFiles/Space.dir/common/controls.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/Space.dir/common/controls.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/greg/Documents/Projects/C++/space/common/controls.cpp -o CMakeFiles/Space.dir/common/controls.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/greg/CPP/space/common/controls.cpp -o CMakeFiles/Space.dir/common/controls.cpp.s
 
 CMakeFiles/Space.dir/common/controls.cpp.o.requires:
 
@@ -203,16 +203,16 @@ CMakeFiles/Space.dir/common/controls.cpp.o.provides.build: CMakeFiles/Space.dir/
 
 CMakeFiles/Space.dir/common/delta.cpp.o: CMakeFiles/Space.dir/flags.make
 CMakeFiles/Space.dir/common/delta.cpp.o: ../common/delta.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/greg/Documents/Projects/C++/space/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building CXX object CMakeFiles/Space.dir/common/delta.cpp.o"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/Space.dir/common/delta.cpp.o -c /home/greg/Documents/Projects/C++/space/common/delta.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/greg/CPP/space/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building CXX object CMakeFiles/Space.dir/common/delta.cpp.o"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/Space.dir/common/delta.cpp.o -c /home/greg/CPP/space/common/delta.cpp
 
 CMakeFiles/Space.dir/common/delta.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/Space.dir/common/delta.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/greg/Documents/Projects/C++/space/common/delta.cpp > CMakeFiles/Space.dir/common/delta.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/greg/CPP/space/common/delta.cpp > CMakeFiles/Space.dir/common/delta.cpp.i
 
 CMakeFiles/Space.dir/common/delta.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/Space.dir/common/delta.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/greg/Documents/Projects/C++/space/common/delta.cpp -o CMakeFiles/Space.dir/common/delta.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/greg/CPP/space/common/delta.cpp -o CMakeFiles/Space.dir/common/delta.cpp.s
 
 CMakeFiles/Space.dir/common/delta.cpp.o.requires:
 
@@ -225,18 +225,42 @@ CMakeFiles/Space.dir/common/delta.cpp.o.provides: CMakeFiles/Space.dir/common/de
 CMakeFiles/Space.dir/common/delta.cpp.o.provides.build: CMakeFiles/Space.dir/common/delta.cpp.o
 
 
+CMakeFiles/Space.dir/common/objloader.cpp.o: CMakeFiles/Space.dir/flags.make
+CMakeFiles/Space.dir/common/objloader.cpp.o: ../common/objloader.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/greg/CPP/space/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Building CXX object CMakeFiles/Space.dir/common/objloader.cpp.o"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/Space.dir/common/objloader.cpp.o -c /home/greg/CPP/space/common/objloader.cpp
+
+CMakeFiles/Space.dir/common/objloader.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/Space.dir/common/objloader.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/greg/CPP/space/common/objloader.cpp > CMakeFiles/Space.dir/common/objloader.cpp.i
+
+CMakeFiles/Space.dir/common/objloader.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/Space.dir/common/objloader.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/greg/CPP/space/common/objloader.cpp -o CMakeFiles/Space.dir/common/objloader.cpp.s
+
+CMakeFiles/Space.dir/common/objloader.cpp.o.requires:
+
+.PHONY : CMakeFiles/Space.dir/common/objloader.cpp.o.requires
+
+CMakeFiles/Space.dir/common/objloader.cpp.o.provides: CMakeFiles/Space.dir/common/objloader.cpp.o.requires
+	$(MAKE) -f CMakeFiles/Space.dir/build.make CMakeFiles/Space.dir/common/objloader.cpp.o.provides.build
+.PHONY : CMakeFiles/Space.dir/common/objloader.cpp.o.provides
+
+CMakeFiles/Space.dir/common/objloader.cpp.o.provides.build: CMakeFiles/Space.dir/common/objloader.cpp.o
+
+
 CMakeFiles/Space.dir/space.cpp.o: CMakeFiles/Space.dir/flags.make
 CMakeFiles/Space.dir/space.cpp.o: ../space.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/greg/Documents/Projects/C++/space/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Building CXX object CMakeFiles/Space.dir/space.cpp.o"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/Space.dir/space.cpp.o -c /home/greg/Documents/Projects/C++/space/space.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/greg/CPP/space/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_9) "Building CXX object CMakeFiles/Space.dir/space.cpp.o"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/Space.dir/space.cpp.o -c /home/greg/CPP/space/space.cpp
 
 CMakeFiles/Space.dir/space.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/Space.dir/space.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/greg/Documents/Projects/C++/space/space.cpp > CMakeFiles/Space.dir/space.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/greg/CPP/space/space.cpp > CMakeFiles/Space.dir/space.cpp.i
 
 CMakeFiles/Space.dir/space.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/Space.dir/space.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/greg/Documents/Projects/C++/space/space.cpp -o CMakeFiles/Space.dir/space.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/greg/CPP/space/space.cpp -o CMakeFiles/Space.dir/space.cpp.s
 
 CMakeFiles/Space.dir/space.cpp.o.requires:
 
@@ -258,6 +282,7 @@ Space_OBJECTS = \
 "CMakeFiles/Space.dir/rendering/utils/texture.cpp.o" \
 "CMakeFiles/Space.dir/common/controls.cpp.o" \
 "CMakeFiles/Space.dir/common/delta.cpp.o" \
+"CMakeFiles/Space.dir/common/objloader.cpp.o" \
 "CMakeFiles/Space.dir/space.cpp.o"
 
 # External object files for target Space
@@ -270,6 +295,7 @@ Space: CMakeFiles/Space.dir/rendering/utils/text2D.cpp.o
 Space: CMakeFiles/Space.dir/rendering/utils/texture.cpp.o
 Space: CMakeFiles/Space.dir/common/controls.cpp.o
 Space: CMakeFiles/Space.dir/common/delta.cpp.o
+Space: CMakeFiles/Space.dir/common/objloader.cpp.o
 Space: CMakeFiles/Space.dir/space.cpp.o
 Space: CMakeFiles/Space.dir/build.make
 Space: /usr/lib/libGL.so
@@ -277,7 +303,7 @@ Space: /usr/lib/libGLU.so
 Space: /usr/lib/libGLEW.so
 Space: /usr/lib/libglfw.so
 Space: CMakeFiles/Space.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/greg/Documents/Projects/C++/space/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_9) "Linking CXX executable Space"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/greg/CPP/space/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_10) "Linking CXX executable Space"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/Space.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
@@ -292,6 +318,7 @@ CMakeFiles/Space.dir/requires: CMakeFiles/Space.dir/rendering/utils/text2D.cpp.o
 CMakeFiles/Space.dir/requires: CMakeFiles/Space.dir/rendering/utils/texture.cpp.o.requires
 CMakeFiles/Space.dir/requires: CMakeFiles/Space.dir/common/controls.cpp.o.requires
 CMakeFiles/Space.dir/requires: CMakeFiles/Space.dir/common/delta.cpp.o.requires
+CMakeFiles/Space.dir/requires: CMakeFiles/Space.dir/common/objloader.cpp.o.requires
 CMakeFiles/Space.dir/requires: CMakeFiles/Space.dir/space.cpp.o.requires
 
 .PHONY : CMakeFiles/Space.dir/requires
@@ -301,6 +328,6 @@ CMakeFiles/Space.dir/clean:
 .PHONY : CMakeFiles/Space.dir/clean
 
 CMakeFiles/Space.dir/depend:
-	cd /home/greg/Documents/Projects/C++/space/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/greg/Documents/Projects/C++/space /home/greg/Documents/Projects/C++/space /home/greg/Documents/Projects/C++/space/build /home/greg/Documents/Projects/C++/space/build /home/greg/Documents/Projects/C++/space/build/CMakeFiles/Space.dir/DependInfo.cmake --color=$(COLOR)
+	cd /home/greg/CPP/space/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/greg/CPP/space /home/greg/CPP/space /home/greg/CPP/space/build /home/greg/CPP/space/build /home/greg/CPP/space/build/CMakeFiles/Space.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : CMakeFiles/Space.dir/depend
 

@@ -24,7 +24,7 @@ GL/glew.h
 GL/glew.h
 -
 
-/home/greg/Documents/Projects/C++/space/common/controls.cpp
+/home/greg/CPP/space/common/controls.cpp
 GLFW/glfw3.h
 -
 glm/glm.hpp
@@ -32,35 +32,59 @@ glm/glm.hpp
 glm/gtc/matrix_transform.hpp
 -
 controls.hpp
-/home/greg/Documents/Projects/C++/space/common/controls.hpp
+/home/greg/CPP/space/common/controls.hpp
 
-/home/greg/Documents/Projects/C++/space/common/controls.hpp
+/home/greg/CPP/space/common/controls.hpp
 
-/home/greg/Documents/Projects/C++/space/common/delta.cpp
+/home/greg/CPP/space/common/delta.cpp
 delta.hpp
-/home/greg/Documents/Projects/C++/space/common/delta.hpp
+/home/greg/CPP/space/common/delta.hpp
 
-/home/greg/Documents/Projects/C++/space/common/delta.hpp
+/home/greg/CPP/space/common/delta.hpp
 chrono
 -
 
-/home/greg/Documents/Projects/C++/space/physics.cpp
+/home/greg/CPP/space/common/objloader.cpp
+vector
+-
+stdio.h
+-
+string
+-
+cstring
+-
+iostream
+-
+glm/glm.hpp
+-
+objloader.hpp
+/home/greg/CPP/space/common/objloader.hpp
+assimp/Importer.hpp
+-
+assimp/scene.h
+-
+assimp/postprocess.h
+-
+
+/home/greg/CPP/space/common/objloader.hpp
+
+/home/greg/CPP/space/physics.cpp
 physics.hpp
-/home/greg/Documents/Projects/C++/space/physics.hpp
+/home/greg/CPP/space/physics.hpp
 iostream
 -
 cmath
 -
 
-/home/greg/Documents/Projects/C++/space/physics.hpp
+/home/greg/CPP/space/physics.hpp
 vector
 -
 rendering/renderer.hpp
-/home/greg/Documents/Projects/C++/space/rendering/renderer.hpp
+/home/greg/CPP/space/rendering/renderer.hpp
 
-/home/greg/Documents/Projects/C++/space/rendering/renderer.cpp
+/home/greg/CPP/space/rendering/renderer.cpp
 renderer.hpp
-/home/greg/Documents/Projects/C++/space/rendering/renderer.hpp
+/home/greg/CPP/space/rendering/renderer.hpp
 stdio.h
 -
 stdlib.h
@@ -90,13 +114,13 @@ glm/glm.hpp
 glm/gtc/matrix_transform.hpp
 -
 rendering/utils/shader.hpp
-/home/greg/Documents/Projects/C++/space/rendering/rendering/utils/shader.hpp
+/home/greg/CPP/space/rendering/rendering/utils/shader.hpp
 rendering/utils/texture.hpp
-/home/greg/Documents/Projects/C++/space/rendering/rendering/utils/texture.hpp
+/home/greg/CPP/space/rendering/rendering/utils/texture.hpp
 common/controls.hpp
-/home/greg/Documents/Projects/C++/space/rendering/common/controls.hpp
+/home/greg/CPP/space/rendering/common/controls.hpp
 
-/home/greg/Documents/Projects/C++/space/rendering/renderer.hpp
+/home/greg/CPP/space/rendering/renderer.hpp
 vector
 -
 string
@@ -104,9 +128,9 @@ string
 iostream
 -
 common/primitives.hpp
-/home/greg/Documents/Projects/C++/space/rendering/common/primitives.hpp
+/home/greg/CPP/space/rendering/common/primitives.hpp
 common/delta.hpp
-/home/greg/Documents/Projects/C++/space/rendering/common/delta.hpp
+/home/greg/CPP/space/rendering/common/delta.hpp
 glm/gtc/matrix_transform.hpp
 -
 glm/gtx/rotate_vector.hpp
@@ -116,7 +140,7 @@ GL/glew.h
 glm/glm.hpp
 -
 
-/home/greg/Documents/Projects/C++/space/rendering/utils/shader.cpp
+/home/greg/CPP/space/rendering/utils/shader.cpp
 stdio.h
 -
 string
@@ -138,13 +162,13 @@ string.h
 GL/glew.h
 -
 shader.hpp
-/home/greg/Documents/Projects/C++/space/rendering/utils/shader.hpp
+/home/greg/CPP/space/rendering/utils/shader.hpp
 
-/home/greg/Documents/Projects/C++/space/rendering/utils/shader.hpp
+/home/greg/CPP/space/rendering/utils/shader.hpp
 GL/glew.h
-/home/greg/Documents/Projects/C++/space/rendering/utils/GL/glew.h
+/home/greg/CPP/space/rendering/utils/GL/glew.h
 
-/home/greg/Documents/Projects/C++/space/rendering/utils/text2D.cpp
+/home/greg/CPP/space/rendering/utils/text2D.cpp
 vector
 -
 cstring
@@ -156,15 +180,15 @@ glm/glm.hpp
 glm/gtc/matrix_transform.hpp
 -
 rendering/utils/shader.hpp
-/home/greg/Documents/Projects/C++/space/rendering/utils/rendering/utils/shader.hpp
+/home/greg/CPP/space/rendering/utils/rendering/utils/shader.hpp
 rendering/utils/texture.hpp
-/home/greg/Documents/Projects/C++/space/rendering/utils/rendering/utils/texture.hpp
+/home/greg/CPP/space/rendering/utils/rendering/utils/texture.hpp
 text2D.hpp
-/home/greg/Documents/Projects/C++/space/rendering/utils/text2D.hpp
+/home/greg/CPP/space/rendering/utils/text2D.hpp
 
-/home/greg/Documents/Projects/C++/space/rendering/utils/text2D.hpp
+/home/greg/CPP/space/rendering/utils/text2D.hpp
 
-/home/greg/Documents/Projects/C++/space/rendering/utils/texture.cpp
+/home/greg/CPP/space/rendering/utils/texture.cpp
 stdio.h
 -
 stdlib.h
@@ -176,15 +200,15 @@ GL/glew.h
 GLFW/glfw3.h
 -
 
-/home/greg/Documents/Projects/C++/space/space.cpp
+/home/greg/CPP/space/space.cpp
 iostream
 -
 thread
 -
 physics.hpp
-/home/greg/Documents/Projects/C++/space/physics.hpp
+/home/greg/CPP/space/physics.hpp
 unistd.h
 -
 rendering/renderer.hpp
-/home/greg/Documents/Projects/C++/space/rendering/renderer.hpp
+/home/greg/CPP/space/rendering/renderer.hpp
 

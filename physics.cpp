@@ -19,11 +19,6 @@ Vector::normalize()
 	dir = (this->dir)*(1/this->get_mag());
 }
 
-Coord::Coord() 
-{
-	for (int i=0; i<3; i++)
-		inate[i] = 0.0f;
-}
 
 Coord
 Coord::operator*(const float& f)
@@ -86,7 +81,7 @@ Vector::get_sqrmag()
 	return (dir.inate[0]*dir.inate[0])+(dir.inate[1]*dir.inate[1])+(dir.inate[2]*dir.inate[2]);
 }
 
-Object::Object(const char* modelid) : speed(), mass(0) 
+Object::Object(const char* modelid) : speed(), mass(0), model(modelid) 
 {
 	speed.dir.x = 1.0f;
 	speed.dir.y = 2.0f;

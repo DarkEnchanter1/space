@@ -33,14 +33,11 @@ namespace render {
 			RenderEngine();
 			~RenderEngine();
 	};
-	class Model {
+	struct Model {
+		Model(const char* modelid);
 		std::vector<Triangle> triangles;
 		std::vector<UVData>   uvdata;
 		std::vector<Normals>  normals;
-		public:
-		std::vector<Triangle> getVectors();
-		std::vector<UVData> getUVData();
-		std::vector<Normals> getNormals();
 	};
 }
 #endif

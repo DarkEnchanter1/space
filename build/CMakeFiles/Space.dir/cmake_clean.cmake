@@ -6,6 +6,7 @@ file(REMOVE_RECURSE
   "CMakeFiles/Space.dir/rendering/utils/texture.cpp.o"
   "CMakeFiles/Space.dir/common/controls.cpp.o"
   "CMakeFiles/Space.dir/common/delta.cpp.o"
+  "CMakeFiles/Space.dir/common/objloader.cpp.o"
   "CMakeFiles/Space.dir/space.cpp.o"
   "Space.pdb"
   "Space"

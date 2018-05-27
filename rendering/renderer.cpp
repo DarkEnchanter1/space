@@ -4,6 +4,7 @@ using namespace render;
 
 // Include standard headers
 #include <stdio.h>
+#include <cstring>
 #include <stdlib.h>
 #include <unistd.h>
 #include <sys/ioctl.h>
@@ -29,6 +30,33 @@ GLFWwindow* window;
 #include "rendering/utils/texture.hpp"
 #include "common/controls.hpp"
 #include "common/objloader.hpp"
+
+
+#define RESET   "\033[0m"
+#define BLACK   0      /* Black */
+#define RED     1      /* Red */
+#define GREEN   2      /* Green */
+#define YELLOW  3      /* Yellow */
+#define BLUE    4      /* Blue */
+#define MAGENTA 5      /* Magenta */
+#define CYAN    6      /* Cyan */
+#define WHITE   7      /* White */
+const char* colorTable[] = {"\033[30m", "\033[31m", "\033[32m", "\033[33m", "\033[34m", "\033[35m", "\033[36m", "\033[37m"};
+void printColor (unsigned int clr, const char* string) {
+	std::cerr << colorTable[clr] << string << RESET;
+}
+
+void printCondition (int level, const char* string) {
+	if (level == GL_DEBUG_SEVERITY_HIGH_ARB) 
+		printColor(RED, string);
+	else if (level == GL_DEBUG_SEVERITY_MEDIUM_ARB)
+		printColor(YELLOW, string);
+	else if (level == GL_DEBUG_SEVERITY_LOW_ARB)
+		std::cout << string;
+	else
+		printColor(CYAN, string);
+}
+
 void setWindowHints() {
 	glfwWindowHint(GLFW_SAMPLES, 4);
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
@@ -90,9 +118,9 @@ void openGlSetup(GLuint* VertexArrayID, GLuint* programID, GLuint* MatrixID, GLu
 
 	// Get a handle for our "MVP" uniform
 	(*MatrixID) = glGetUniformLocation(*programID, "MVP");
-	(*ViewMatrixID) = glGetUniformLocation(*programID, "V");
-	(*ModelMatrixID) = glGetUniformLocation(*programID, "M");
-	(*LightID) = glGetUniformLocation(*programID, "LightPosition_worldspace");
+	//(*ViewMatrixID) = glGetUniformLocation(*programID, "V");
+	//(*ModelMatrixID) = glGetUniformLocation(*programID, "M");
+	//(*LightID) = glGetUniformLocation(*programID, "LightPosition_worldspace");
 }
 static int get_size(const int fd, int *const rows, int *const cols) {
 	struct winsize sz;
@@ -121,64 +149,67 @@ void clearAndPrint(const char* string) {
 	std::cout << '\r';
 	for (int i = 0; i < width; i++)
 		std::cout << ' ';
-	std::cout << '\r' << string;
-	fflush(stdout);
+	std::cout << '\r' << string << std::flush;
 }
 void clearAndPrint(std::string string) {
 	std::cout << '\r';
 	for (int i = 0; i < width; i++)
-		std::cout << ' ';
-	std::cout << '\r' << string;
-	fflush(stdout);
+		std::cout << '_';
+	std::cout << '\r' << string << std::flush;
 }
+uint vallength = 5;
 void RenderEngine::loop() {
+	double lastTime = glfwGetTime();
+ 	int nbFrames = 0;
 	do {
-		render();
+		render(&lastTime, &nbFrames);
 	} while (glfwGetKey(window, GLFW_KEY_R) != GLFW_PRESS);
+	// Cleanup VBO and shader
+	glDeleteBuffers(1, &vertexbuffer);
+	glDeleteBuffers(1, &uvbuffer);
+	glDeleteProgram(programID);
+	glDeleteTextures(1, &Texture);
+	glDeleteVertexArrays(1, &VertexArrayID);
+
+	// Close OpenGL window and terminate GLFW
+	glfwTerminate();
 }
-// The ARB_debug_output extension, which is used in this tutorial as an example,
-// can call a function of ours with error messages.
-// This function must have this precise prototype ( parameters and return value )
-// See http://www.opengl.org/registry/specs/ARB/debug_output.txt , "New Types" : 
-//	The callback function that applications can define, and
-//	is accepted by DebugMessageCallbackARB, is defined as:
-//	
-//	    typedef void (APIENTRY *DEBUGPROCARB)(enum source,
-//	                                          enum type,
-//	                                          uint id,
-//	                                          enum severity,
-//	                                          sizei length,
-//	                                          const char* message,
-//	                                          void* userParam);
+
 void APIENTRY DebugOutputCallback(GLenum source, GLenum type, GLuint id, GLenum severity, GLsizei length, const GLchar* message, const void* userParam){
+	if(severity == GL_DEBUG_SEVERITY_HIGH_ARB)              printCondition(severity, "SERIOUS ");
+	else if(severity == GL_DEBUG_SEVERITY_MEDIUM_ARB)       printCondition(severity, "Dangerous ");
+	else if(severity == GL_DEBUG_SEVERITY_LOW_ARB)          printCondition(severity, "Moderate ");
+	else                                                    printCondition(severity, "Unknown ");
+	printCondition(severity, "OpenGL ");
+	if(type == GL_DEBUG_TYPE_ERROR_ARB)                     printCondition(severity, "Error ");
+	else if(type == GL_DEBUG_TYPE_DEPRECATED_BEHAVIOR_ARB)  printCondition(severity, "Deprecated Behavior Warning ");
+	else if(type == GL_DEBUG_TYPE_UNDEFINED_BEHAVIOR_ARB)   printCondition(severity, "Undefined Behavior Warning ");
+	else if(type == GL_DEBUG_TYPE_PORTABILITY_ARB)          printCondition(severity, "Unportable Functionality Warning ");
+	else if(type == GL_DEBUG_TYPE_PERFORMANCE_ARB)          printCondition(severity, "Impl-dependent Performance Warning ");
+	else if(type == GL_DEBUG_TYPE_OTHER_ARB)                printCondition(severity, "Warning ");
+	else                                                    printCondition(severity, "Non-Standard-Compliant Error ");
+	printCondition(severity, "from ");
+	if(source == GL_DEBUG_SOURCE_API_ARB)                   printCondition(severity, "the API: ");
+	else if(source == GL_DEBUG_SOURCE_WINDOW_SYSTEM_ARB)    printCondition(severity, "the Window System: ");
+	else if(source == GL_DEBUG_SOURCE_SHADER_COMPILER_ARB)  printCondition(severity, "the Shader Compiler: ");
+	else if(source == GL_DEBUG_SOURCE_THIRD_PARTY_ARB)      printCondition(severity, "a Third Party: ");
+	else if(source == GL_DEBUG_SOURCE_APPLICATION_ARB)      printCondition(severity, "the Application: ");
+	else if(source == GL_DEBUG_SOURCE_OTHER_ARB)            printCondition(severity, "something unknown: ");
+	else                                                    printCondition(severity, "a Non-Standard-Compliant Source: ");
 
-	printf("OGL ERROR : ");
-
-	if(source == GL_DEBUG_SOURCE_API_ARB)					printf("SRC : API; ");
-	else if(source == GL_DEBUG_SOURCE_WINDOW_SYSTEM_ARB)	printf("SRC : WINDOW_SYSTEM; ");
-	else if(source == GL_DEBUG_SOURCE_SHADER_COMPILER_ARB)	printf("SRC : SHADER_COMPILER; ");
-	else if(source == GL_DEBUG_SOURCE_THIRD_PARTY_ARB)		printf("SRC : THIRD_PARTY; ");
-	else if(source == GL_DEBUG_SOURCE_APPLICATION_ARB)		printf("SRC : APPLICATION; ");
-	else if(source == GL_DEBUG_SOURCE_OTHER_ARB)			printf("SRC : OTHER; ");
-
-	if(type == GL_DEBUG_TYPE_ERROR_ARB)						printf("T : ERROR; ");
-	else if(type == GL_DEBUG_TYPE_DEPRECATED_BEHAVIOR_ARB)	printf("T : DEPRECATED_BEHAVIOR; ");
-	else if(type == GL_DEBUG_TYPE_UNDEFINED_BEHAVIOR_ARB)	printf("T : UNDEFINED_BEHAVIOR; ");
-	else if(type == GL_DEBUG_TYPE_PORTABILITY_ARB)			printf("T : PORTABILITY; ");
-	else if(type == GL_DEBUG_TYPE_PERFORMANCE_ARB)			printf("T : PERFORMANCE; ");
-	else if(type == GL_DEBUG_TYPE_OTHER_ARB)				printf("T : OTHER; ");
-
-	if(severity == GL_DEBUG_SEVERITY_HIGH_ARB)				printf("Sev : HIGH; ");
-	else if(severity == GL_DEBUG_SEVERITY_MEDIUM_ARB)		printf("Sev : MEDIUM; ");
-	else if(severity == GL_DEBUG_SEVERITY_LOW_ARB)			printf("Sev : LOW; ");
 
 	// You can set a breakpoint here ! Your debugger will stop the program,
 	// and the callstack will immediately show you the offending call.
-	printf("Message : %s\n", message);
+	
+	printCondition(severity, message);
+	if (message[strlen(message) - 1] != '\n') printCondition(severity, "\n\n");
+	else printCondition(severity, "\n");
 }
 
 RenderEngine::RenderEngine()
 {
+	get_size(STDOUT_FILENO, &height, &width);
+	vallength = width / 32;
 	initGLFW();
 	initGLEW();
 	setInputMode();
@@ -196,29 +227,23 @@ RenderEngine::RenderEngine()
 	glm::mat4 Model      = glm::mat4(1.0f);
 	// Our ModelViewProjection : multiplication of our 3 matrices
 	MVP        = Projection * View * Model; // Remember, matrix multiplication is the other way around
-	// Load the texture using any two methods
-	//GLuint Texture = loadBMP_custom("uvtemplate.bmp");
 	Texture = loadDDS("resources/textures/concrete.DDS");
 	lightPos = glm::vec3(0,0,0);
 	// Get a handle for our "myTextureSampler" uniform
-	TextureID  = glGetUniformLocation(programID, "myTextureSampler");
+	TextureID  = glGetUniformLocation(programID, "tSampler");
 	if ( GLEW_ARB_debug_output ){
-		printf("The OpenGL implementation provides debug output. Let's use it !\n");
+		printColor(GREEN, "OpenGL Debug Callback is supported. Enabling advanced callback\n");
 		glDebugMessageCallbackARB(&DebugOutputCallback, NULL);
 		glEnable(GL_DEBUG_OUTPUT_SYNCHRONOUS_ARB); 
 	}else{
-		printf("ARB_debug_output unavailable. You have to use glGetError() and/or gDebugger to catch mistakes.\n");
+		printColor(YELLOW, "OpenGL Debug Callback not supported. Errors may be lost\n");
 	}
 	glGenBuffers(1, &vertexbuffer);
 	glGenBuffers(1, &uvbuffer);
-	glGenBuffers(1, &normalbuffer);
+	//glGenBuffers(1, &normalbuffer);
 
 }
 RenderEngine::~RenderEngine() {
-	// Cleanup VBO and shader
-	glDeleteProgram(programID);
-	glDeleteVertexArrays(1, &VertexArrayID);
-
 	// Close OpenGL window and terminate GLFW
 	glfwTerminate();
 }
@@ -226,7 +251,18 @@ RenderEngine::~RenderEngine() {
 
 
 
-int RenderEngine::render() {		// Handles controls and view refactor
+int RenderEngine::render(double* lastTime, int* nbFrames) {
+	 // Measure speed
+     double currentTime = glfwGetTime();
+     (*nbFrames)++;
+     if ( currentTime - *lastTime >= 1.0 ){ // If last prinf() was more than 1 sec ago
+         // printf and reset timer
+         printf("%f ms/frame\n", 1000.0/double(*nbFrames));
+         *nbFrames = 0;
+         *lastTime += 1.0;
+     }
+	// Handles controls and view refactor
+	//? This is disabled for now because the vertex and fragment shader have been greatly simplified and can't use this at the moment.
 	computeMatricesFromInputs(window);
 	// Clear the screen
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -234,36 +270,29 @@ int RenderEngine::render() {		// Handles controls and view refactor
 	// Use our shader
 	glUseProgram(programID);
 	
-	//Recalculate view
-		glm::mat4 Projection = getProjectionMatrix();
-		// Camera matrix
-		glm::mat4 View       = getViewMatrix();
-		// Model matrix : an identity matrix (model will be at the origin)
-		glm::mat4 Model      = glm::mat4(1.0f);
-		// Our ModelViewProjection : multiplication of our 3 matrices
-		MVP        = Projection * View * Model; // Remember, matrix multiplication is the other way around
-	
 	// Send our transformation to the currently bound shader, 
 	// in the "MVP" uniform
+	glm::mat4 Model = glm::mat4(1.0f);
+	glm::mat4 View = getViewMatrix();
+	glm::mat4 Projection = getProjectionMatrix();
+	MVP = Projection * View * Model;
 	glUniformMatrix4fv(MatrixID, 1, GL_FALSE, &MVP[0][0]);
-	glUniformMatrix4fv(ModelMatrixID, 1, GL_FALSE, &Model[0][0]);
-	glUniformMatrix4fv(ViewMatrixID, 1, GL_FALSE, &View[0][0]);
-	glUniform3f(LightID, lightPos.x, lightPos.y, lightPos.z);
-
 	// Cull triangles which normal is not towards the camera
 	glEnable(GL_CULL_FACE);
 
-	glActiveTexture(GL_TEXTURE0);
-	glBindTexture(GL_TEXTURE_2D, Texture);
-	// Set our "myTextureSampler" sampler to use Texture Unit 0
-	glUniform1i(TextureID, 0);
+	
+		// Bind our texture in Texture Unit 0
+		glActiveTexture(GL_TEXTURE0);
+		glBindTexture(GL_TEXTURE_2D, Texture);
+		// Set our "myTextureSampler" sampler to use Texture Unit 0
+		glUniform1i(TextureID, 0);
 
 	glEnableVertexAttribArray(0);
 	glBindBuffer(GL_ARRAY_BUFFER, vertexbuffer);
-	glBufferData(GL_ARRAY_BUFFER, triangles.size() * 3, &triangles, GL_STATIC_DRAW);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(glm::vec4) * triangles.size(), &triangles[0], GL_STATIC_DRAW);
 	glVertexAttribPointer(
 		0,                  // attribute. No particular reason for 0, but must match the layout in the shader.
-		3,                  // size
+		4,                  // size
 		GL_FLOAT,           // type
 		GL_FALSE,           // normalized?
 		0,                  // stride
@@ -271,7 +300,7 @@ int RenderEngine::render() {		// Handles controls and view refactor
 	);
 	glEnableVertexAttribArray(1);
 	glBindBuffer(GL_ARRAY_BUFFER, uvbuffer);
-	glBufferData(GL_ARRAY_BUFFER, uvdata.size() * 2, &uvdata, GL_STATIC_DRAW);	
+	glBufferData(GL_ARRAY_BUFFER, sizeof(glm::vec2) * uvdata.size(), &uvdata[0], GL_STATIC_DRAW);	
 	glVertexAttribPointer(
 		1,                                // attribute. No particular reason for 1, but must match the layout in the shader.
 		2,                                // size
@@ -280,25 +309,13 @@ int RenderEngine::render() {		// Handles controls and view refactor
 		0,                                // stride
 		(void*)0                          // array buffer offset
 	);
-	 // 3rd attribute buffer : normals
- 	glEnableVertexAttribArray(2);
-	glBindBuffer(GL_ARRAY_BUFFER, normalbuffer);
-	glBufferData(GL_ARRAY_BUFFER, normals.size() * 3, &normals, GL_STATIC_DRAW);	
-	glVertexAttribPointer(
-    	 2,                                // attribute
-	     3,                                // size
-    	 GL_FLOAT,                         // type
-	     GL_FALSE,                         // normalized?
-	     0,                                // stride
-	     (void*)0                          // array buffer offset
-	 );
 	// Draw the triangle !
-	glDrawArrays(GL_TRIANGLES, 0, triangles.size()); // 12*3 indices starting at 0 -> 12 triangles
-	glDisableVertexAttribArray(0);
-	glDisableVertexAttribArray(1);
+	glDrawArrays(GL_TRIANGLES, 0, triangles.size()); // Dynamic triangle count.
 		// Swap buffers
 		glfwSwapBuffers(window);
 		glfwPollEvents();
+	glDisableVertexAttribArray(0);
+	//glDisableVertexAttribArray(1);
 	return 0;
 };
 Model::Model(const char* modelid) {

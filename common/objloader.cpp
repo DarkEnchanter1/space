@@ -27,9 +27,9 @@
 bool loadAssImp(
 	const char * path, 
 	std::vector<unsigned short> & indices,
-	std::vector<glm::vec3> & vertices,
+	std::vector<glm::vec4> & vertices,
 	std::vector<glm::vec2> & uvs,
-	std::vector<glm::vec3> & normals
+	std::vector<glm::vec4> & normals
 ){
 
 	Assimp::Importer importer;
@@ -47,7 +47,7 @@ bool loadAssImp(
 	vertices.reserve(mesh->mNumVertices);
 	for(unsigned int i=0; i<mesh->mNumVertices; i++){
 		aiVector3D pos = mesh->mVertices[i];
-		vertices.push_back(glm::vec3(pos.x, pos.y, pos.z));
+		vertices.push_back(glm::vec4(pos.x, pos.y, pos.z, 1.0f));
 	}
 	//std::cout << "vertices positions set" << std::endl;
 	// Fill vertices texture coordinates
@@ -69,7 +69,7 @@ bool loadAssImp(
 	normals.reserve(mesh->mNumVertices);
 	for(unsigned int i=0; i<mesh->mNumVertices; i++){
 		aiVector3D n = mesh->mNormals[i];
-		normals.push_back(glm::vec3(n.x, n.y, n.z));
+		normals.push_back(glm::vec4(n.x, n.y, n.z, 0.0f));
 	}
 	//	std::cout << "Done with normals for mesh " << mn << std::endl;
 	//	std::cout << "Normals loaded" << std::endl;

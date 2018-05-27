@@ -19,7 +19,7 @@ public:
 	Factory(render::RenderEngine* _r);
 	Object create_object(const char* modelid);
 	Force  create_force(Vector f, Object* o);
-	void update();
+	void update(float delta);
 };
 
 struct Coord
@@ -69,11 +69,12 @@ protected:
 	Vector dir;
 	Vector upv;
 	render::Model model;
+	std::vector<glm::vec4> triangles;
 	Object(const char* modelid);
 	friend Object Factory::create_object(const char* modelid);
 public:
-	void pushModel(std::vector<glm::vec3>* triangles, std::vector<glm::vec2>* uvdata, std::vector<glm::vec3>* normals);
-	void update(void);
+	void pushModel(std::vector<glm::vec4>* triangles, std::vector<glm::vec2>* uvdata, std::vector<glm::vec4>* normals);
+	void update(float delta);
 	void print(void);
 	void set_speed(int index, float val);
 	void set_speed(Vector v);
@@ -89,7 +90,7 @@ class Force
 	//Force(Angle a, float mag, Object* o);	// theta, N(net)
 public:
 
-	void update();
+	void update(float delta);
 	friend Force Factory::create_force(Vector f, Object* o);
 };
 

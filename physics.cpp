@@ -83,9 +83,9 @@ Vector::get_sqrmag()
 
 Object::Object(const char* modelid) : speed(), mass(0), model(modelid) 
 {
-	speed.dir.x = 1.0f;
-	speed.dir.y = 2.0f;
-	speed.dir.z = 5.0f;
+	speed.dir.x = 0.0f;
+	speed.dir.y = 0.0f;
+	speed.dir.z = 0.0f;
 
 	float tmp[3] = {0.0f,0.0f,0.0f};
 	pos = tmp;
@@ -97,11 +97,19 @@ Object::Object(const char* modelid) : speed(), mass(0), model(modelid)
 }
 
 void
-Object::update()
+Object::update(float delta)
 {
+	triangles.clear();
 	//std::cout << "Update! " << this << std::endl;
-	for(int i=0; i<3; i++)
-		pos.inate[i] = pos.inate[i] + speed.dir.inate[i];
+	for(int i=0; i<3; i++) {
+		pos.inate[i] = pos.inate[i] + (speed.dir.inate[i] * delta);
+		std::cout << pos.inate[i] << ", ";
+	}
+	std::cout << std::endl;
+	glm::mat4 transMat = glm::translate(glm::mat4(), glm::vec3(pos.inate[0], pos.inate[1], pos.inate[2]));
+	for (uint i = 0; i < model.triangles.size(); i++) {
+		triangles.push_back(transMat * model.triangles[i]);
+	}
 }
 
 void
@@ -135,9 +143,9 @@ Object::get_speed(int index)
 }
 
 void
-Object::pushModel(std::vector<glm::vec3>* triangleBuf, std::vector<glm::vec2>* uvBuf, std::vector<glm::vec3>* normalBuf)
+Object::pushModel(std::vector<glm::vec4>* triangleBuf, std::vector<glm::vec2>* uvBuf, std::vector<glm::vec4>* normalBuf)
 {
-	triangleBuf->insert(triangleBuf->end(), model.triangles.begin(), model.triangles.end());
+	triangleBuf->insert(triangleBuf->end(), triangles.begin(), triangles.end());
 	uvBuf->insert(uvBuf->end(), model.uvdata.begin(), model.uvdata.end());
 	normalBuf->insert(normalBuf->end(), model.normals.begin(), model.normals.end());
 }
@@ -164,16 +172,15 @@ Factory::create_force(Vector f, Physics::Object* o)
 }
 
 void
-Factory::update()
+Factory::update(float delta)
 {
-	std::vector<glm::vec3> triangleBuf;
+	std::vector<glm::vec4> triangleBuf;
 	std::vector<glm::vec2> uvBuf;
-	std::vector<glm::vec3> normalBuf;
-	
+	std::vector<glm::vec4> normalBuf;
 	for ( auto &i : fors)
-		i->update();
+		i->update(delta);
 	for ( auto &i : objs) {
-		i->update();
+		i->update(delta);
 		i->pushModel(&triangleBuf, &uvBuf, &normalBuf);
 	}
 	rend->triangles = triangleBuf;
@@ -187,9 +194,9 @@ Force::Force(Vector f, Object* o) : o(o), v(f)
 };
 
 void
-Force::update()
+Force::update(float delta)
 {
 	for(int i=0; i<3; i++)
-		o->set_speed(i, (o->get_speed(i)+v.dir.inate[i]));
+		o->set_speed(i, (o->get_speed(i)+v.dir.inate[i]) * delta);
 }
 }

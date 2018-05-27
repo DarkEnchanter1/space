@@ -91,6 +91,8 @@ renderer.hpp
 /home/greg/CPP/space/rendering/renderer.hpp
 stdio.h
 -
+cstring
+-
 stdlib.h
 -
 unistd.h
@@ -210,6 +212,8 @@ GLFW/glfw3.h
 iostream
 -
 thread
+-
+sys/time.h
 -
 physics.hpp
 /home/greg/CPP/space/physics.hpp

@@ -20,6 +20,8 @@ glm::mat4 getViewMatrix(){
 glm::mat4 getProjectionMatrix(){
 	return ProjectionMatrix;
 }
+	//Defines the rotation to apply to left/right translations.
+const float rot90 = 1.570796326794896619231321691639751442098584699687552910487f; 
 
 
 // Initial position : on +Z
@@ -37,8 +39,6 @@ float mouseSpeed = 0.005f;
 bool firstTime = true;
 bool menuMode = false, firstPress = true;
 void computeMatricesFromInputs(GLFWwindow* window){
-	std::cout << horizontalAngle << ", " << verticalAngle << std::endl;
-	std::cout << position.x << ", " << position.y << ", " << position.z << std::endl;
 	if (horizontalAngle > 6.28318) horizontalAngle -= 6.28318;
 	if (horizontalAngle < 0) horizontalAngle += 6.28318;
 	// glfwGetTime is called only once, the first time this function is called
@@ -79,28 +79,37 @@ void computeMatricesFromInputs(GLFWwindow* window){
 	// Up vector
 	glm::vec3 up = glm::cross( right, direction );
 	float modSpeed = speed;
-	if (glfwGetKey( window, GLFW_KEY_LEFT_SHIFT ) == GLFW_PRESS){
-		modSpeed *= 4;
+	if (glfwGetKey( window, GLFW_KEY_LEFT_ALT ) == GLFW_PRESS){
+		modSpeed /= 4;
 	}
 	if (glfwGetKey( window, GLFW_KEY_LEFT_CONTROL ) == GLFW_PRESS){
-		modSpeed /= 4;
+		modSpeed *= 4;
 	}
 	// Move forward
 	if (glfwGetKey( window, GLFW_KEY_W ) == GLFW_PRESS){
-		position += direction * deltaTime * modSpeed;
+		position += /*direction*/ glm::vec3(sin(horizontalAngle), 0, cos(horizontalAngle)) * deltaTime * modSpeed;
 	}
 	// Move backward
 	if (glfwGetKey( window, GLFW_KEY_S ) == GLFW_PRESS){
-		position -= direction * deltaTime * modSpeed;
+		position -= /*direction*/ glm::vec3(sin(horizontalAngle), 0, cos(horizontalAngle)) * deltaTime * modSpeed;
 	}
 	// Strafe right
 	if (glfwGetKey( window, GLFW_KEY_D ) == GLFW_PRESS){
-		position += right * deltaTime * modSpeed;
+		position -= /*direction*/ glm::vec3(sin(horizontalAngle + rot90), 0, cos(horizontalAngle + rot90)) * deltaTime * modSpeed;
 	}
 	// Strafe left
 	if (glfwGetKey( window, GLFW_KEY_A ) == GLFW_PRESS){
-		position -= right * deltaTime * modSpeed;
+		position += /*direction*/ glm::vec3(sin(horizontalAngle + rot90), 0, cos(horizontalAngle + rot90)) * deltaTime * modSpeed;
 	}
+	// Fly up
+	if (glfwGetKey( window, GLFW_KEY_SPACE ) == GLFW_PRESS){
+		position += /*direction*/ glm::vec3(0, 1, 0) * deltaTime * modSpeed;
+	}
+	// Fly down
+	if (glfwGetKey( window, GLFW_KEY_LEFT_SHIFT ) == GLFW_PRESS){
+		position -= /*direction*/ glm::vec3(0, 1, 0) * deltaTime * modSpeed;
+	}
+	
 	// Open a 'menu'
 	if (glfwGetKey( window, GLFW_KEY_E ) == GLFW_PRESS){
 		if (firstPress) {
@@ -118,7 +127,7 @@ void computeMatricesFromInputs(GLFWwindow* window){
 	float FoV = initialFoV;// - 5 * glfwGetMouseWheel(); // Now GLFW 3 requires setting up a callback for this. It's a bit too complicated for this beginner's tutorial, so it's disabled instead.
 
 	// Projection matrix : 45� Field of View, 4:3 ratio, display range : 0.1 unit <-> 100 units
-	ProjectionMatrix = glm::perspective(glm::radians(FoV), 4.0f / 3.0f, 0.1f, 100.0f);
+	ProjectionMatrix = glm::perspective(glm::radians(FoV), 4.0f / 3.0f, 0.1f, 300.0f);
 	// Camera matrix
 	ViewMatrix       = glm::lookAt(
 								position,           // Camera is here

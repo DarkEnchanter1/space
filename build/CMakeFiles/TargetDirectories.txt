@@ -1,3 +1,0 @@
-/home/greg/CPP/space/build/CMakeFiles/rebuild_cache.dir
-/home/greg/CPP/space/build/CMakeFiles/Space.dir
-/home/greg/CPP/space/build/CMakeFiles/edit_cache.dir

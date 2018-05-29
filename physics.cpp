@@ -21,7 +21,7 @@ Vector::normalize()
 
 
 Coord
-Coord::operator*(const float& f)
+Coord::operator*(const double& f)
 {
 	Coord c = *this;
 	for (int i=0; i<3; i++)
@@ -38,7 +38,7 @@ Coord::operator=(const Coord& c)
 }
 
 Coord
-Coord::operator=(const float f[3])
+Coord::operator=(const double f[3])
 {
 	for (int i=0; i<3; i++)
 		this->inate[i] = f[i];
@@ -87,29 +87,32 @@ Object::Object(const char* modelid) : speed(), mass(0), model(modelid)
 	speed.dir.y = 0.0f;
 	speed.dir.z = 0.0f;
 
-	float tmp[3] = {0.0f,0.0f,0.0f};
+	double tmp[3] = {0.0,0.0,0.0};
 	pos = tmp;
 
-	tmp[0] = 1.0f;
+	tmp[0] = 1.0;
 	dir.dir = tmp;
-	tmp[0] = 0; tmp[2] = 1.0f;
+	tmp[0] = 0; 
+	tmp[2] = 1.0;
 	upv.dir = tmp;
 }
 
 void
-Object::update(float delta)
+Object::update(double delta)
 {
-	triangles.clear();
-	//std::cout << "Update! " << this << std::endl;
 	for(int i=0; i<3; i++) {
-		pos.inate[i] = pos.inate[i] + (speed.dir.inate[i] * delta);
-		std::cout << pos.inate[i] << ", ";
+		pos.inate[i] = pos.inate[i] + (speed.dir.inate[i] * (delta*100));
+		//std::cout << pos.inate[i]; //For some reason this makes things work...
+		//! THIS IS NOT THREAD SAFE. MUCH SYNCHRONISATION NEEDS TO BE DONE
+		//? More accurately, this code doesn't work for god knows what reason unless this method takes a while to return.
 	}
-	std::cout << std::endl;
-	glm::mat4 transMat = glm::translate(glm::mat4(), glm::vec3(pos.inate[0], pos.inate[1], pos.inate[2]));
-	for (uint i = 0; i < model.triangles.size(); i++) {
-		triangles.push_back(transMat * model.triangles[i]);
-	}
+	//std::cout << std::endl;
+	Model = glm::translate(glm::mat4(), glm::vec3((float)pos.inate[0], (float)pos.inate[1], (float)pos.inate[2]));
+	// for (int x = 0; x < 4; x++) {
+	// 	for (int y = 0; y < 4; y++)
+	// 		std::cout << Model[x][y] << ", ";
+	// 	std::cout << std::endl;
+	// } 
 }
 
 void
@@ -141,25 +144,69 @@ Object::get_speed(int index)
 {
 	return speed.dir.inate[index];
 }
-
+/*
+	Like the initializer, but on the render thread.
+*/
+void Object::preRender() {
+}
 void
-Object::pushModel(std::vector<glm::vec4>* triangleBuf, std::vector<glm::vec2>* uvBuf, std::vector<glm::vec4>* normalBuf)
+Object::render(GLuint ModelID) {
+	//Sets the model transformation matrix
+	glUniformMatrix4fv(ModelID, 1, GL_FALSE, &Model[0][0]);
+	glEnableVertexAttribArray(0);
+	glBindBuffer(GL_ARRAY_BUFFER, vertexbuffer);
+	//glBufferData(GL_ARRAY_BUFFER, sizeof(glm::vec4) * model.triangles.size(), &model.triangles[0], GL_STATIC_DRAW);
+	glVertexAttribPointer(
+		0,                  // attribute. No particular reason for 0, but must match the layout in the shader.
+		4,                  // size
+		GL_FLOAT,           // type
+		GL_FALSE,           // normalized?
+		0,                  // stride
+		(void*)0            // array buffer offset
+	);
+	glEnableVertexAttribArray(1);
+	glBindBuffer(GL_ARRAY_BUFFER, uvbuffer);
+	//glBufferData(GL_ARRAY_BUFFER, sizeof(glm::vec2) * model.uvdata.size(), &model.uvdata[0], GL_STATIC_DRAW);	
+	glVertexAttribPointer(
+		1,                                // attribute. No particular reason for 1, but must match the layout in the shader.
+		2,                                // size
+		GL_FLOAT,                         // type
+		GL_FALSE,                         // normalized?
+		0,                                // stride
+		(void*)0                          // array buffer offset
+	);
+	// Draw the triangle !
+	glDrawArrays(GL_TRIANGLES, 0, model.triangles.size()); // Dynamic triangle count.
+
+}
+void
+Object::pushModel(/*std::vector<glm::vec4>* triangleBuf, std::vector<glm::vec2>* uvBuf, std::vector<glm::vec4>* normalBuf*/)
 {
-	triangleBuf->insert(triangleBuf->end(), triangles.begin(), triangles.end());
-	uvBuf->insert(uvBuf->end(), model.uvdata.begin(), model.uvdata.end());
-	normalBuf->insert(normalBuf->end(), model.normals.begin(), model.normals.end());
+	glGenBuffers(1, &vertexbuffer);
+	glGenBuffers(1, &uvbuffer);
+	glBindBuffer(GL_ARRAY_BUFFER, vertexbuffer);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(glm::vec4) * model.triangles.size(), &model.triangles[0], GL_STATIC_DRAW);
+	glBindBuffer(GL_ARRAY_BUFFER, uvbuffer);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(glm::vec2) * model.uvdata.size(), &model.uvdata[0], GL_STATIC_DRAW);
+//	triangleBuf->insert(triangleBuf->end(), model.triangles.begin(), model.triangles.end());
+//	uvBuf->insert(uvBuf->end(), model.uvdata.begin(), model.uvdata.end());
+//	normalBuf->insert(normalBuf->end(), model.normals.begin(), model.normals.end());
 }
 
 Factory::Factory(render::RenderEngine* _r) {
 	rend = _r; //TODO: Stop this double initialization
+	if (_r != 0)
+	_r->physics = this;
 }
 
 Object
 Factory::create_object(const char* modelid)
 {
 	Object ret = Object(modelid);
-	std::cout << &ret << " added to list\n";
+    std::lock_guard<std::mutex> lock(objs_mutex);
 	objs.push_back(&ret);
+	if (rend != 0)
+	rend->dataHasUpdated = true;
 	return ret;
 }
 
@@ -172,20 +219,30 @@ Factory::create_force(Vector f, Physics::Object* o)
 }
 
 void
-Factory::update(float delta)
+Factory::update(double delta)
 {
-	std::vector<glm::vec4> triangleBuf;
-	std::vector<glm::vec2> uvBuf;
-	std::vector<glm::vec4> normalBuf;
 	for ( auto &i : fors)
 		i->update(delta);
+    std::lock_guard<std::mutex> lock(objs_mutex);
 	for ( auto &i : objs) {
 		i->update(delta);
-		i->pushModel(&triangleBuf, &uvBuf, &normalBuf);
 	}
-	rend->triangles = triangleBuf;
-	rend->uvdata = uvBuf;
-	rend->normals = normalBuf;
+}
+void
+Factory::sendAllModels() {
+//	std::vector<glm::vec4> triangleBuf;
+//	std::vector<glm::vec2> uvBuf;
+//	std::vector<glm::vec4> normalBuf;
+    std::lock_guard<std::mutex> lock(objs_mutex);
+	for (int i = 0; i < objs.size(); i++) {
+		if (objs[i] != 0)
+			objs[i]->pushModel(/*&triangleBuf, &uvBuf, &normalBuf*/);
+	}
+	//rend->triangles = triangleBuf;
+	//rend->uvdata = uvBuf;
+	//rend->normals = normalBuf;
+	if (rend != 0)
+	rend->dataHasUpdated = true;
 }
 
 Force::Force(Vector f, Object* o) : o(o), v(f)
@@ -194,7 +251,7 @@ Force::Force(Vector f, Object* o) : o(o), v(f)
 };
 
 void
-Force::update(float delta)
+Force::update(double delta)
 {
 	for(int i=0; i<3; i++)
 		o->set_speed(i, (o->get_speed(i)+v.dir.inate[i]) * delta);

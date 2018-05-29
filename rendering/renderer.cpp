@@ -28,6 +28,7 @@ GLFWwindow* window;
 // Include local files
 #include "rendering/utils/shader.hpp"
 #include "rendering/utils/texture.hpp"
+#include "rendering/utils/text2D.hpp"
 #include "common/controls.hpp"
 #include "common/objloader.hpp"
 
@@ -79,7 +80,7 @@ int initGLFW() {
 	}
 	setWindowHints();
 	// Open a window and create its OpenGL context
-	window = glfwCreateWindow( 1024, 768, "Tutorial 05 - Textured Cube", NULL, NULL);
+	window = glfwCreateWindow( 1024, 768, "Space Game", NULL, NULL);
 	if( window == NULL ){
 		fprintf( stderr, "Failed to open GLFW window. If you have an Intel GPU, they are not 3.3 compatible. Try the 2.1 version of the tutorials.\n" );
 		glfwTerminate();
@@ -104,8 +105,8 @@ void setInputMode() {
 	// Hide the mouse cursor
 	glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_HIDDEN);
 }
-void openGlSetup(GLuint* VertexArrayID, GLuint* programID, GLuint* MatrixID, GLuint* ViewMatrixID, GLuint* ModelMatrixID, GLuint* LightID) {	// Dark blue background
-	glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
+void openGlSetup(GLuint* VertexArrayID, GLuint* programID, GLuint* MatrixID, GLuint* ModelID, GLuint* ViewMatrixID, GLuint* ModelMatrixID, GLuint* LightID) {	// Dark blue background
+	glClearColor(0.3f, 0.3f, 0.7f, 1.0f);
 	// Enable depth test
 	glEnable(GL_DEPTH_TEST);
 	// Accept fragment if it closer to the camera than the former one
@@ -118,6 +119,7 @@ void openGlSetup(GLuint* VertexArrayID, GLuint* programID, GLuint* MatrixID, GLu
 
 	// Get a handle for our "MVP" uniform
 	(*MatrixID) = glGetUniformLocation(*programID, "MVP");
+	(*ModelID) = glGetUniformLocation(*programID, "ModelPos");
 	//(*ViewMatrixID) = glGetUniformLocation(*programID, "V");
 	//(*ModelMatrixID) = glGetUniformLocation(*programID, "M");
 	//(*LightID) = glGetUniformLocation(*programID, "LightPosition_worldspace");
@@ -157,13 +159,23 @@ void clearAndPrint(std::string string) {
 		std::cout << '_';
 	std::cout << '\r' << string << std::flush;
 }
+void RenderEngine::sendBufferData() {
+	physics->sendAllModels();
+	dataHasUpdated = false;
+	std::cout << "Resent Buffer Data" << std::endl;
+}
 uint vallength = 5;
 void RenderEngine::loop() {
 	double lastTime = glfwGetTime();
  	int nbFrames = 0;
+	int framerate = 0;
+	glfwSwapInterval(0);
+	sendBufferData();
 	do {
-		render(&lastTime, &nbFrames);
-	} while (glfwGetKey(window, GLFW_KEY_R) != GLFW_PRESS);
+		if (dataHasUpdated)
+			sendBufferData();
+		render(&lastTime, &nbFrames, &framerate);
+	} while (glfwGetKey(window, GLFW_KEY_ESCAPE) != GLFW_PRESS);
 	// Cleanup VBO and shader
 	glDeleteBuffers(1, &vertexbuffer);
 	glDeleteBuffers(1, &uvbuffer);
@@ -196,11 +208,6 @@ void APIENTRY DebugOutputCallback(GLenum source, GLenum type, GLuint id, GLenum 
 	else if(source == GL_DEBUG_SOURCE_APPLICATION_ARB)      printCondition(severity, "the Application: ");
 	else if(source == GL_DEBUG_SOURCE_OTHER_ARB)            printCondition(severity, "something unknown: ");
 	else                                                    printCondition(severity, "a Non-Standard-Compliant Source: ");
-
-
-	// You can set a breakpoint here ! Your debugger will stop the program,
-	// and the callstack will immediately show you the offending call.
-	
 	printCondition(severity, message);
 	if (message[strlen(message) - 1] != '\n') printCondition(severity, "\n\n");
 	else printCondition(severity, "\n");
@@ -208,12 +215,14 @@ void APIENTRY DebugOutputCallback(GLenum source, GLenum type, GLuint id, GLenum 
 
 RenderEngine::RenderEngine()
 {
+	
 	get_size(STDOUT_FILENO, &height, &width);
 	vallength = width / 32;
 	initGLFW();
 	initGLEW();
+	initText2D("resources/textures/noto_sans_black_128.DDS", "resources/textures/noto_sans_black_128.json");
 	setInputMode();
-	openGlSetup(&VertexArrayID, &programID, &MatrixID, &ViewMatrixID, &ModelMatrixID, &LightID);
+	openGlSetup(&VertexArrayID, &programID, &MatrixID, &ModelID, &ViewMatrixID, &ModelMatrixID, &LightID);
 
 	// Projection matrix : 45 degree Field of View, 4:3 ratio, display range : 0.1 unit <-> 100 units
 	glm::mat4 Projection = glm::perspective(glm::radians(45.0f), 4.0f / 3.0f, 0.1f, 100.0f);
@@ -248,22 +257,31 @@ RenderEngine::~RenderEngine() {
 	glfwTerminate();
 }
 
+void renderGui(int fps) {
+	int w = 0;
+	int h = 0;
+	glfwGetWindowSize(window, &w, &h);
+	printText2D(std::to_string(fps).c_str(), 0, h - 200, 16);
+}
 
 
-
-int RenderEngine::render(double* lastTime, int* nbFrames) {
+int RenderEngine::render(double* lastTime, int* nbFrames, int* framerate) {
 	 // Measure speed
      double currentTime = glfwGetTime();
      (*nbFrames)++;
      if ( currentTime - *lastTime >= 1.0 ){ // If last prinf() was more than 1 sec ago
          // printf and reset timer
          printf("%f ms/frame\n", 1000.0/double(*nbFrames));
+		 *framerate = *nbFrames;
          *nbFrames = 0;
          *lastTime += 1.0;
      }
 	// Handles controls and view refactor
-	//? This is disabled for now because the vertex and fragment shader have been greatly simplified and can't use this at the moment.
 	computeMatricesFromInputs(window);
+	// Enable depth test
+	glEnable(GL_DEPTH_TEST);
+	// Accept fragment if it closer to the camera than the former one
+	glDepthFunc(GL_LESS); 
 	// Clear the screen
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
@@ -277,6 +295,7 @@ int RenderEngine::render(double* lastTime, int* nbFrames) {
 	glm::mat4 Projection = getProjectionMatrix();
 	MVP = Projection * View * Model;
 	glUniformMatrix4fv(MatrixID, 1, GL_FALSE, &MVP[0][0]);
+	glUniformMatrix4fv(ModelID, 1, GL_FALSE, &Model[0][0]);
 	// Cull triangles which normal is not towards the camera
 	glEnable(GL_CULL_FACE);
 
@@ -287,31 +306,40 @@ int RenderEngine::render(double* lastTime, int* nbFrames) {
 		// Set our "myTextureSampler" sampler to use Texture Unit 0
 		glUniform1i(TextureID, 0);
 
-	glEnableVertexAttribArray(0);
-	glBindBuffer(GL_ARRAY_BUFFER, vertexbuffer);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(glm::vec4) * triangles.size(), &triangles[0], GL_STATIC_DRAW);
-	glVertexAttribPointer(
-		0,                  // attribute. No particular reason for 0, but must match the layout in the shader.
-		4,                  // size
-		GL_FLOAT,           // type
-		GL_FALSE,           // normalized?
-		0,                  // stride
-		(void*)0            // array buffer offset
-	);
-	glEnableVertexAttribArray(1);
-	glBindBuffer(GL_ARRAY_BUFFER, uvbuffer);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(glm::vec2) * uvdata.size(), &uvdata[0], GL_STATIC_DRAW);	
-	glVertexAttribPointer(
-		1,                                // attribute. No particular reason for 1, but must match the layout in the shader.
-		2,                                // size
-		GL_FLOAT,                         // type
-		GL_FALSE,                         // normalized?
-		0,                                // stride
-		(void*)0                          // array buffer offset
-	);
-	// Draw the triangle !
-	glDrawArrays(GL_TRIANGLES, 0, triangles.size()); // Dynamic triangle count.
+		if (physics != 0) {
+		std::lock_guard<std::mutex> lock(physics->objs_mutex);
+		for (auto object : physics->objs) 
+			object->render(ModelID);
+		}
+	// glEnableVertexAttribArray(0);
+	// glBindBuffer(GL_ARRAY_BUFFER, vertexbuffer);
+	// //glBufferData(GL_ARRAY_BUFFER, sizeof(glm::vec4) * triangles.size(), &triangles[0], GL_STATIC_DRAW);
+	// glVertexAttribPointer(
+	// 	0,                  // attribute. No particular reason for 0, but must match the layout in the shader.
+	// 	4,                  // size
+	// 	GL_FLOAT,           // type
+	// 	GL_FALSE,           // normalized?
+	// 	0,                  // stride
+	// 	(void*)0            // array buffer offset
+	// );
+	// glEnableVertexAttribArray(1);
+	// glBindBuffer(GL_ARRAY_BUFFER, uvbuffer);
+	// //glBufferData(GL_ARRAY_BUFFER, sizeof(glm::vec2) * uvdata.size(), &uvdata[0], GL_STATIC_DRAW);	
+	// glVertexAttribPointer(
+	// 	1,                                // attribute. No particular reason for 1, but must match the layout in the shader.
+	// 	2,                                // size
+	// 	GL_FLOAT,                         // type
+	// 	GL_FALSE,                         // normalized?
+	// 	0,                                // stride
+	// 	(void*)0                          // array buffer offset
+	// );
+	// // Draw the triangle !
+	// glDrawArrays(GL_TRIANGLES, 0, triangles.size()); // Dynamic triangle count.
 		// Swap buffers
+
+	// Enable depth test
+		glDisable(GL_DEPTH_TEST);
+		renderGui(*framerate);
 		glfwSwapBuffers(window);
 		glfwPollEvents();
 	glDisableVertexAttribArray(0);

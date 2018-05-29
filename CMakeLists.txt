@@ -9,9 +9,11 @@ set(RenderSourceList
         "rendering/utils/text2D.cpp" "rendering/utils/text2D.hpp"
         "rendering/utils/texture.cpp" "rendering/utils/texture.hpp")
 set(CommonSourceList
-        "common/controls.cpp" "common/controls.hpp"
-        "common/delta.cpp" "common/delta.hpp"
-        "common/objloader.cpp" "common/objloader.hpp"
+        "common/controls.cpp"   "common/controls.hpp"
+        "common/delta.cpp"      "common/delta.hpp"
+        "common/objloader.cpp"  "common/objloader.hpp"
+        "common/jsonreader.cpp" "common/jsonreader.hpp"
+        "common/json.hpp"
         "common/primitives.hpp")
 set (MainSourceList
         "space.cpp")

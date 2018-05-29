@@ -1,5 +1,7 @@
 #include <vector>
 #include <cstring>
+#include <map>
+#include <iostream>
 
 #include <GL/glew.h>
 
@@ -9,7 +11,12 @@ using namespace glm;
 
 #include "rendering/utils/shader.hpp"
 #include "rendering/utils/texture.hpp"
+#include "common/jsonreader.hpp"
+using json = nlohmann::json;
 
+json fontData;
+/// Stores the data for characters in a table with the characters ASCII value as the key
+std::map<int, json> charData;
 #include "text2D.hpp"
 
 unsigned int Text2DTextureID;
@@ -18,8 +25,15 @@ unsigned int Text2DUVBufferID;
 unsigned int Text2DShaderID;
 unsigned int Text2DUniformID;
 
-void initText2D(const char * texturePath){
+unsigned int tTexHeight,tTexWidth;
 
+void initText2D(const char* texturePath, const char* jsonPath){
+	fontData = func(jsonPath);
+	for (json element : fontData.value("/symbols"_json_pointer, json())) {
+		charData[element.value("/id"_json_pointer, 0)] = element;
+	}
+	tTexHeight = fontData.at("/config"_json_pointer).at("/textureHeight"_json_pointer);
+	tTexWidth = fontData.at("/config"_json_pointer).at("/textureWidth"_json_pointer);
 	// Initialize texture
 	Text2DTextureID = loadDDS(texturePath);
 
@@ -28,7 +42,7 @@ void initText2D(const char * texturePath){
 	glGenBuffers(1, &Text2DUVBufferID);
 
 	// Initialize Shader
-	Text2DShaderID = LoadShaders( "TextVertexShader.vertexshader", "TextVertexShader.fragmentshader" );
+	Text2DShaderID = LoadShaders( "resources/text.vs", "resources/text.fs" );
 
 	// Initialize uniforms' IDs
 	Text2DUniformID = glGetUniformLocation( Text2DShaderID, "myTextureSampler" );
@@ -44,10 +58,10 @@ void printText2D(const char * text, int x, int y, int size){
 	std::vector<glm::vec2> UVs;
 	for ( unsigned int i=0 ; i<length ; i++ ){
 		
-		glm::vec2 vertex_up_left    = glm::vec2( x+i*size     , y+size );
-		glm::vec2 vertex_up_right   = glm::vec2( x+i*size+size, y+size );
-		glm::vec2 vertex_down_right = glm::vec2( x+i*size+size, y      );
-		glm::vec2 vertex_down_left  = glm::vec2( x+i*size     , y      );
+		glm::vec2 vertex_up_left    = glm::vec2( x+i*size     , y+size ); //Top    left  coord
+		glm::vec2 vertex_up_right   = glm::vec2( x+i*size+size, y+size ); //Top    right coord
+		glm::vec2 vertex_down_right = glm::vec2( x+i*size+size, y      ); //Bottom right coord
+		glm::vec2 vertex_down_left  = glm::vec2( x+i*size     , y      ); //Bottom left coord
 
 		vertices.push_back(vertex_up_left   );
 		vertices.push_back(vertex_down_left );
@@ -58,13 +72,16 @@ void printText2D(const char * text, int x, int y, int size){
 		vertices.push_back(vertex_down_left);
 
 		char character = text[i];
-		float uv_x = (character%16)/16.0f;
-		float uv_y = (character/16)/16.0f;
-
-		glm::vec2 uv_up_left    = glm::vec2( uv_x           , uv_y );
-		glm::vec2 uv_up_right   = glm::vec2( uv_x+1.0f/16.0f, uv_y );
-		glm::vec2 uv_down_right = glm::vec2( uv_x+1.0f/16.0f, (uv_y + 1.0f/16.0f) );
-		glm::vec2 uv_down_left  = glm::vec2( uv_x           , (uv_y + 1.0f/16.0f) );
+		float uv_x = ((float)charData[(int)character].value("/x"_json_pointer, 0))/(float)tTexWidth;
+		float uv_y = ((float)charData[(int)character].value("/y"_json_pointer, 0))/(float)tTexHeight;
+		float uv_w = uv_x+((float)charData[(int)character].value("/width"_json_pointer, 0))/(float)tTexWidth;
+		float uv_h = (uv_y + ((float)charData[(int)character].value("/height"_json_pointer, 0))/(float)tTexHeight);
+//		float uv_x = (character%16)/16.0f;
+//		float uv_y = (character/16)/16.0f;
+		glm::vec2 uv_up_left    = glm::vec2( uv_x, uv_y);
+		glm::vec2 uv_up_right   = glm::vec2( uv_w, uv_y);
+		glm::vec2 uv_down_right = glm::vec2( uv_w, uv_h);
+		glm::vec2 uv_down_left  = glm::vec2( uv_x, uv_h);
 		UVs.push_back(uv_up_left   );
 		UVs.push_back(uv_down_left );
 		UVs.push_back(uv_up_right  );

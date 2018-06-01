@@ -40,7 +40,7 @@ class render::RenderEngine {
 		Physics::Factory* physics = 0;
 		bool dataHasUpdated = false;
 		GLuint vertexbuffer, uvbuffer, normalbuffer;
-		int render(double* delta, int* frames, int* framerate);
+		int render(double* delta, int* frames, int* framerate, bool* menu);
 		RenderEngine();
 		~RenderEngine();
 		void loop();

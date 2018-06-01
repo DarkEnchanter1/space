@@ -169,12 +169,12 @@ void RenderEngine::loop() {
 	double lastTime = glfwGetTime();
  	int nbFrames = 0;
 	int framerate = 0;
+	bool menu = false;
 	glfwSwapInterval(0);
-	sendBufferData();
 	do {
 		if (dataHasUpdated)
 			sendBufferData();
-		render(&lastTime, &nbFrames, &framerate);
+		render(&lastTime, &nbFrames, &framerate, &menu);
 	} while (glfwGetKey(window, GLFW_KEY_ESCAPE) != GLFW_PRESS);
 	// Cleanup VBO and shader
 	glDeleteBuffers(1, &vertexbuffer);
@@ -257,7 +257,7 @@ RenderEngine::~RenderEngine() {
 	glfwTerminate();
 }
 
-void renderGui(int fps) {
+void renderGui(int fps, bool* menu) {
 	int w = 0;
 	int h = 0;
 	glfwGetWindowSize(window, &w, &h);
@@ -265,7 +265,7 @@ void renderGui(int fps) {
 }
 
 
-int RenderEngine::render(double* lastTime, int* nbFrames, int* framerate) {
+int RenderEngine::render(double* lastTime, int* nbFrames, int* framerate, bool* menu) {
 	 // Measure speed
      double currentTime = glfwGetTime();
      (*nbFrames)++;
@@ -277,7 +277,7 @@ int RenderEngine::render(double* lastTime, int* nbFrames, int* framerate) {
          *lastTime += 1.0;
      }
 	// Handles controls and view refactor
-	computeMatricesFromInputs(window);
+	computeMatricesFromInputs(window, menu);
 	// Enable depth test
 	glEnable(GL_DEPTH_TEST);
 	// Accept fragment if it closer to the camera than the former one
@@ -337,9 +337,9 @@ int RenderEngine::render(double* lastTime, int* nbFrames, int* framerate) {
 	// glDrawArrays(GL_TRIANGLES, 0, triangles.size()); // Dynamic triangle count.
 		// Swap buffers
 
-	// Enable depth test
+	// Disable depth test for 2D rendering
 		glDisable(GL_DEPTH_TEST);
-		renderGui(*framerate);
+		renderGui(*framerate, menu);
 		glfwSwapBuffers(window);
 		glfwPollEvents();
 	glDisableVertexAttribArray(0);

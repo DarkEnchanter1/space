@@ -203,7 +203,7 @@ Object
 Factory::create_object(const char* modelid)
 {
 	Object ret = Object(modelid);
-    std::lock_guard<std::mutex> lock(objs_mutex);
+	std::lock_guard<std::mutex> lock(objs_mutex);
 	objs.push_back(&ret);
 	if (rend != 0)
 	rend->dataHasUpdated = true;
@@ -233,6 +233,7 @@ Factory::sendAllModels() {
 //	std::vector<glm::vec4> triangleBuf;
 //	std::vector<glm::vec2> uvBuf;
 //	std::vector<glm::vec4> normalBuf;
+	std::cout << (void*) this << std::endl;
     std::lock_guard<std::mutex> lock(objs_mutex);
 	for (int i = 0; i < objs.size(); i++) {
 		if (objs[i] != 0)
